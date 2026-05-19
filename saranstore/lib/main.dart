@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/dependencies/init_dependencies.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
-import 'package:saranstore/feature/home/presentation/pages/home_page.dart';
+import 'package:saranstore/feature/splash/presentation/pages/mobile/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class SaranStoreApp extends StatelessWidget {
             surfaceTintColor: Colors.transparent,
           ),
         ),
-        home: const HomePage(),
+        home: const SplashPage(),
       ),
     );
   }
