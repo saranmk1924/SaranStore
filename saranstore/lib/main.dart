@@ -21,11 +21,13 @@ class SaranStoreApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(
-          create: (_) => serviceLocator<HomeBloc>()
-            ..add(FetchProductsEvent()),
+          create: (_) => serviceLocator<HomeBloc>()..add(FetchProductsEvent()),
         ),
       ],
       child: MaterialApp(
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          scrollbars: false,
+        ),
         debugShowCheckedModeBanner: false,
         title: 'SaranStore',
         theme: ThemeData(
