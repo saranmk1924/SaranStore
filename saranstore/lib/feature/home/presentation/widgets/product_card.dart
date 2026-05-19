@@ -1,22 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:saranstore/core/constant/app_palette.dart';
 
 import '../../domain/entity/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppPalette.primaryColor,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppPalette.white, width: 3),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,18 +44,31 @@ class ProductCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
+                    color: AppPalette.white,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '\$${product.price}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                    ShaderMask(
+                      shaderCallback: (bounds) {
+                        return const LinearGradient(
+                          colors: [
+                            AppPalette.secondaryColor,
+                            AppPalette.orange,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
+                      child: Text(
+                        '\$${product.price}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Row(
@@ -64,17 +76,20 @@ class ProductCard extends StatelessWidget {
                         const Icon(
                           Icons.star,
                           size: 16,
-                          color: Colors.orange,
+                          color: AppPalette.secondaryColor,
                         ),
                         const SizedBox(width: 4),
-                        Text(product.rating.toString()),
+                        Text(
+                          product.rating.toString(),
+                          style: TextStyle(color: AppPalette.white),
+                        ),
                       ],
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
