@@ -7,8 +7,8 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CupertinoActivityIndicator(
-      color: AppPalette.primaryColor,
-      radius: 25,
+      color: AppPalette.secondaryColor,
+      radius: 20,
       animating: true,
     );
   }

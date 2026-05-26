@@ -16,7 +16,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppPalette.secondaryColor,
+      backgroundColor: AppPalette.primaryColor,
       appBar: AppBar(
         backgroundColor: AppPalette.primaryColor,
         elevation: 0,
@@ -80,19 +80,23 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                     height: 55,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppPalette.primaryColor,
                       borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppPalette.white, width: 2),
                     ),
                     child: const Row(
                       children: [
-                        Icon(Icons.search),
+                        Icon(Icons.search, color: AppPalette.white),
                         SizedBox(width: 10),
-                        Text('Search products'),
+                        Text(
+                          'Search products',
+                          style: TextStyle(color: AppPalette.white),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 16),
                 Expanded(
                   child: RawScrollbar(
                     controller: _scrollController,
@@ -100,7 +104,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                     radius: const Radius.circular(50),
                     thickness: 5,
                     padding: EdgeInsets.only(right: 1),
-                    thumbColor: AppPalette.primaryColor,
+                    thumbColor: AppPalette.white,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: GridView.builder(
@@ -110,8 +114,8 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
                               childAspectRatio: 0.68,
                             ),
                         itemBuilder: (context, index) {

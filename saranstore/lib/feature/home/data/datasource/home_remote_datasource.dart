@@ -8,7 +8,7 @@ class HomeRemoteDatasource {
   HomeRemoteDatasource({required this.dio});
 
   Future<List<ProductModel>> getProducts() async {
-    final response = await dio.get("products/category/sports-accessories");
+    final response = await dio.get("products");
 
     final List products = response.data['products'];
 

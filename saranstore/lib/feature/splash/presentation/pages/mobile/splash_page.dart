@@ -90,16 +90,13 @@ class _SplashPageState extends State<SplashPage>
                 height: 260 + (_controller.value * 40),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppPalette.secondaryColor
+                  color: AppPalette.secondaryColor,
                 ),
               ),
 
               // Main logo
               ClipOval(
-                child: Image.asset(
-                  'assets/pngs/app_logo_2.png',
-                  width: 240,
-                ),
+                child: Image.asset('assets/pngs/app_logo_2.png', width: 240),
               ),
             ],
           );
