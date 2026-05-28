@@ -14,6 +14,23 @@ class HomeRemoteDatasource {
 
     return products.map((e) => ProductModel.fromJson(e)).toList();
   }
+
+  Future<ProductModel> addProduct(ProductModel product) async {
+    final response = await dio.post(
+      "products/add",
+      data: {
+        "title": product.title,
+
+        "thumbnail": product.thumbnail,
+
+        "price": product.price,
+
+        "rating": product.rating,
+      },
+    );
+
+    return ProductModel.fromJson(response.data);
+  }
 }
 
 // https://dummyjson.com/products
