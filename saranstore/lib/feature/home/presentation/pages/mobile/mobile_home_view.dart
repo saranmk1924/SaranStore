@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/common_widget/ss_loader.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
-import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/add_product_dialog.dart';
 import 'package:saranstore/feature/home/presentation/widgets/product_card.dart';
@@ -70,18 +68,6 @@ class _MobileHomeViewState extends State<MobileHomeView> {
       body: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeLoaded && state.isAdded) {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     backgroundColor: AppPalette.white,
-            //     content: Text(
-            //       "Product added successfully :)",
-            //       style: TextStyle(
-            //         color: AppPalette.primaryColor,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //   ),
-            // );
             SsSnackbar().show(
               context: context,
               message: "Product added successfully :)",
@@ -100,6 +86,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
             if (state is HomeLoaded) {
               return Stack(
+                alignment: Alignment.center,
                 children: [
                   Column(
                     children: [
@@ -167,20 +154,31 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                   ),
                   Positioned(
                     bottom: 20,
-                    right: 20,
-                    child: SizedBox(
+
+                    child: Container(
                       width: 60,
                       height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppPalette.orange.withValues(alpha: 0.2),
+                            blurRadius: 15,
+                            spreadRadius: 20,
+                          ),
+                        ],
+                      ),
                       child: FloatingActionButton(
                         backgroundColor: AppPalette.secondaryColor,
                         foregroundColor: AppPalette.black,
-
+                        elevation: 20,
                         onPressed: () {
                           AddProductDialog().addProduct(context);
                           // ProductEntity product = ProductEntity(
                           //   id: 10,
                           //   title: "CM Vijay",
                           //   thumbnail: "https://pbs.twimg.com/profile_images/1837200576779563009/EcHkTM-M_400x400.jpg",
+                          //   https://ritzmagazineimages.b-cdn.net/uploads/2020/05/ajith-kumar.jpg
                           //   price: 10.8,
                           //   rating: 5.0,
                           // );
@@ -189,7 +187,11 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                           //   AddProductEvent(product: product),
                           // );
                         },
-                        child: Icon(Icons.add),
+                        child: Icon(
+                          Icons.add,
+                          fontWeight: FontWeight.w500,
+                          size: 35,
+                        ),
                       ),
                     ),
                   ),

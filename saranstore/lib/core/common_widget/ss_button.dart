@@ -20,10 +20,12 @@ class SsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        padding: WidgetStatePropertyAll(EdgeInsetsGeometry.all(18)),
+        padding: WidgetStatePropertyAll(
+          EdgeInsetsGeometry.symmetric(horizontal: 18, vertical: 10),
+        ),
         elevation: WidgetStatePropertyAll(5),
         backgroundColor: WidgetStatePropertyAll(
-          buttonColor ?? AppPalette.primaryColor,
+          buttonColor ?? AppPalette.secondaryColor,
         ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
@@ -36,13 +38,17 @@ class SsButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (prefixIcon != null) ...{
-            Icon(prefixIcon, color: AppPalette.secondaryColor),
+            Icon(
+              prefixIcon,
+              color: AppPalette.primaryColor,
+              fontWeight: FontWeight.bold,
+            ),
             SizedBox(width: 6),
           },
           Text(
             buttonText,
             style: TextStyle(
-              color: textColor ?? AppPalette.secondaryColor,
+              color: textColor ?? AppPalette.primaryColor,
               fontSize: 17,
             ),
           ),
