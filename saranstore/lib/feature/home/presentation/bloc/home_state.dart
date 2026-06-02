@@ -8,8 +8,9 @@ class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
   final List<ProductEntity> products;
+  final bool isAdded;
 
-  HomeLoaded(this.products);
+  HomeLoaded({required this.products,required this.isAdded});
 }
 
 class HomeError extends HomeState {

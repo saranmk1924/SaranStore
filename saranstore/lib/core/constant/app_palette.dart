@@ -11,4 +11,5 @@ class AppPalette {
   static const Color black = Color(0xFF212121);
   static const Color orange = Colors.orangeAccent;
   static const Color transparent = Colors.transparent;
+  static const Color red = Colors.redAccent;
 }

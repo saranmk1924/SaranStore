@@ -8,7 +8,8 @@ import 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetProductsUsecase getProductsUsecase;
   final AddProductUsecase addProductUsecase;
-  HomeBloc({required this.getProductsUsecase, required this.addProductUsecase}) : super(HomeInitial()) {
+  HomeBloc({required this.getProductsUsecase, required this.addProductUsecase})
+    : super(HomeInitial()) {
     on<FetchProductsEvent>(_fetchProducts);
     on<AddProductEvent>(_addProduct);
   }
@@ -22,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       final products = await getProductsUsecase();
 
-      emit(HomeLoaded(products));
+      emit(HomeLoaded(products: products, isAdded: false));
     } catch (e) {
       emit(HomeError(e.toString()));
     }
@@ -40,7 +41,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         final updatedProducts = [addedProduct, ...currentState.products];
 
-        emit(HomeLoaded(updatedProducts));
+        emit(HomeLoaded(products: updatedProducts, isAdded: true));
       } catch (e) {
         emit(HomeError(e.toString()));
       }
