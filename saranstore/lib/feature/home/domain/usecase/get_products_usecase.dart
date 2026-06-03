@@ -6,7 +6,7 @@ class GetProductsUsecase {
 
   GetProductsUsecase({required this.repository});
 
-  Future<List<ProductEntity>> call() async {
-    return await repository.getProducts();
+  Future<List<ProductEntity>> call(String categorySlug) async {
+    return await repository.getProducts(categorySlug);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
+
 import '../../domain/entity/product_entity.dart';
 
 abstract class HomeState {}
@@ -8,9 +10,16 @@ class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
   final List<ProductEntity> products;
+  final List<CategoryEntity> categories;
+  final CategoryEntity? selectedCategory;
   final bool isAdded;
 
-  HomeLoaded({required this.products,required this.isAdded});
+  HomeLoaded({
+    required this.products,
+    required this.isAdded,
+    required this.categories,
+    this.selectedCategory,
+  });
 }
 
 class HomeError extends HomeState {

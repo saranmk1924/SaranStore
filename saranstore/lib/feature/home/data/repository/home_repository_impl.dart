@@ -1,5 +1,6 @@
 import 'package:saranstore/feature/home/data/datasource/home_remote_datasource.dart';
 import 'package:saranstore/feature/home/data/model/product_model.dart';
+import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
 
 import '../../domain/entity/product_entity.dart';
 import '../../domain/repository/home_repository.dart';
@@ -10,8 +11,8 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({required this.remoteDatasource});
 
   @override
-  Future<List<ProductEntity>> getProducts() async {
-    return await remoteDatasource.getProducts();
+  Future<List<ProductEntity>> getProducts(String categorySlug) async {
+    return await remoteDatasource.getProducts(categorySlug);
   }
 
   @override
@@ -25,5 +26,10 @@ class HomeRepositoryImpl implements HomeRepository {
     );
 
     return await remoteDatasource.addProduct(model);
+  }
+
+  @override
+  Future<List<CategoryEntity>> getCategories()async{
+    return remoteDatasource.getCategories();
   }
 }

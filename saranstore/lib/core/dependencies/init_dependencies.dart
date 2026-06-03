@@ -4,6 +4,7 @@ import 'package:saranstore/feature/home/data/datasource/home_remote_datasource.d
 import 'package:saranstore/feature/home/data/repository/home_repository_impl.dart';
 import 'package:saranstore/feature/home/domain/repository/home_repository.dart';
 import 'package:saranstore/feature/home/domain/usecase/add_product_usecase.dart';
+import 'package:saranstore/feature/home/domain/usecase/get_categories_usecase.dart';
 import 'package:saranstore/feature/home/domain/usecase/get_products_usecase.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import '../network/dio_client.dart';
@@ -32,13 +33,22 @@ Future<void> initDependencies() async {
 
   /// Bloc
   serviceLocator.registerFactory<HomeBloc>(
-    () => HomeBloc(getProductsUsecase: serviceLocator(),addProductUsecase: serviceLocator()),
+    () => HomeBloc(
+      getProductsUsecase: serviceLocator(),
+      addProductUsecase: serviceLocator(),
+      getCategoriesUsecase: serviceLocator(),
+    ),
   );
 
   /*---------------- Add Product ------------------------*/
 
   //usecase
-  serviceLocator.registerLazySingleton(
+  serviceLocator.registerLazySingleton<AddProductUsecase>(
     () => AddProductUsecase(repository: serviceLocator()),
+  );
+
+  /*---------------- Add Product ------------------------*/
+  serviceLocator.registerLazySingleton<GetCategoriesUsecase>(
+    () => GetCategoriesUsecase(repository: serviceLocator()),
   );
 }

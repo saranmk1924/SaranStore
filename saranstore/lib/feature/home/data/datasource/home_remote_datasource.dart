@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:saranstore/feature/home/data/model/category_model.dart';
 
 import 'package:saranstore/feature/home/data/model/product_model.dart';
 
 class HomeRemoteDatasource {
   final Dio dio;
 
-  HomeRemoteDatasource({required this.dio});
+  HomeRemoteDatasource({required this.dio,});
 
-  Future<List<ProductModel>> getProducts() async {
-    final response = await dio.get("products");
+  Future<List<ProductModel>> getProducts(String categorySlug) async {
+    final response = await dio.get("products/category/$categorySlug");
 
     final List products = response.data['products'];
 
@@ -30,6 +31,16 @@ class HomeRemoteDatasource {
     );
 
     return ProductModel.fromJson(response.data);
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    final response = await dio.get("products/categories");
+
+    final List categories = response.data;
+
+    return categories
+        .map((category) => CategoryModel.fromJson(category))
+        .toList();
   }
 }
 
