@@ -14,6 +14,6 @@ class AddProductEvent extends HomeEvent {
 }
 
 class FetchCategoriesEvent extends HomeEvent {
-  final bool isFromCategoryList;
-  FetchCategoriesEvent({required this.isFromCategoryList});
+  final bool isFromProductsList;
+  FetchCategoriesEvent({required this.isFromProductsList});
 }

@@ -32,6 +32,9 @@ class ProductCard extends StatelessWidget {
                   imageUrl: product.thumbnail,
                   fit: BoxFit.cover,
                   width: double.infinity,
+                  memCacheWidth: null,
+                  memCacheHeight: null,
+                  useOldImageOnUrlChange: false,
                   placeholder: (context, url) => SsShimmer(),
                   errorWidget: (context, url, error) {
                     return Icon(

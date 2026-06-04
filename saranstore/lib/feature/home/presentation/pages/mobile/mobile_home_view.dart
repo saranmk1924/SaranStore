@@ -30,7 +30,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   void initState() {
     super.initState();
 
-    context.read<HomeBloc>().add(FetchCategoriesEvent(isFromCategoryList: false));
+    context.read<HomeBloc>().add(FetchCategoriesEvent(isFromProductsList: false));
   }
 
   @override
@@ -217,8 +217,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                               onTap: () {
                                 context.read<HomeBloc>().add(
                                   FetchCategoriesEvent(
-                                    isFromCategoryList: true,
-                                    
+                                    isFromProductsList: true,
                                   ),
                                 );
                               },

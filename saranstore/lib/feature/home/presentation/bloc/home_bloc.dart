@@ -28,7 +28,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final currentState = state is HomeLoaded ? state as HomeLoaded : null;
       emit(HomeLoading());
 
-      
       final products = await getProductsUsecase(event.categorySlug.slug);
 
       emit(
@@ -58,7 +57,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final updatedProducts = [addedProduct, ...currentState.products];
 
         emit(
-          HomeLoaded(products: updatedProducts, isAdded: true, categories: currentState.categories,selectedCategory: currentState.selectedCategory),
+          HomeLoaded(
+            products: updatedProducts,
+            isAdded: true,
+            categories: currentState.categories,
+            selectedCategory: currentState.selectedCategory,
+          ),
         );
       } catch (e) {
         emit(HomeError(e.toString()));
@@ -71,11 +75,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     try {
-      if (event.isFromCategoryList) {
-        final currentState = state is HomeLoaded ?state as HomeLoaded : null;
+      if (event.isFromProductsList) {
+        final currentState = state is HomeLoaded ? state as HomeLoaded : null;
         emit(
           HomeLoaded(
-            products: currentState?.products ?? [],
+            products: [],
             isAdded: false,
             categories: currentState?.categories ?? [],
             selectedCategory: null,
@@ -83,7 +87,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
         return;
       } else {
-        final currentState = state is HomeLoaded ? state as HomeLoaded : null;
+        // final currentState = state is HomeLoaded ? state as HomeLoaded : null;
 
         emit(HomeLoading());
 
@@ -91,7 +95,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         emit(
           HomeLoaded(
-            products: currentState?.products ?? [],
+            products: [],
             isAdded: false,
             categories: categories,
           ),
