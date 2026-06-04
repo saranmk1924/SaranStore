@@ -8,17 +8,16 @@ This project was developed as a hands-on implementation of modern Flutter develo
 
 ### Splash
 
-![Splash](assets/screenshots/splash.jpeg)
-
+![Splash](saranstore/assets/screenshots/splash.jpeg)
 
 ### Categories Screen
 
-![Categories](assets/screenshots/categories.jpeg)
+![Categories](saranstore/assets/screenshots/categories.jpeg)
 
 ### Products Screen
 
-![Products](assets/screenshots/products.jpeg)
+![Products](saranstore/assets/screenshots/products.jpeg)
 
 ### Add Product
 
-![Add Product](assets/screenshots/add_product.jpeg)
+![Add Product](saranstore/assets/screenshots/add_product.jpeg)
