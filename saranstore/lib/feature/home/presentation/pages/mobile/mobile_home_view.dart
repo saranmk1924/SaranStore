@@ -34,6 +34,15 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   }
 
   @override
+  void dispose(){
+    super.dispose();
+    _productsScrollController.dispose();
+    _categoriesScrollController.dispose();
+    _searchProductController.dispose();
+    _searchCategoryController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppPalette.primaryColor,

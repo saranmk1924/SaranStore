@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:saranstore/core/common_widget/ss_shimmer.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 
 import '../../domain/entity/product_entity.dart';
@@ -31,6 +32,14 @@ class ProductCard extends StatelessWidget {
                   imageUrl: product.thumbnail,
                   fit: BoxFit.cover,
                   width: double.infinity,
+                  placeholder: (context, url) => SsShimmer(),
+                  errorWidget: (context, url, error) {
+                    return Icon(
+                      Icons.broken_image,
+                      color: AppPalette.grey,
+                      size: 80,
+                    );
+                  },
                 ),
               ),
             ),

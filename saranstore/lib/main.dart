@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/dependencies/init_dependencies.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 import 'package:saranstore/feature/splash/presentation/pages/mobile/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await initDependencies();
 
@@ -20,9 +22,7 @@ class SaranStoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeBloc>(
-          create: (_) => serviceLocator<HomeBloc>(),
-        ),
+        BlocProvider<HomeBloc>(create: (_) => serviceLocator<HomeBloc>()),
       ],
       child: MaterialApp(
         scrollBehavior: const MaterialScrollBehavior().copyWith(
