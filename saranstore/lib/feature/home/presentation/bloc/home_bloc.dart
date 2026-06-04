@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/feature/home/domain/usecase/add_product_usecase.dart';
 import 'package:saranstore/feature/home/domain/usecase/get_categories_usecase.dart';
-
 import '../../domain/usecase/get_products_usecase.dart';
 import 'home_event.dart';
 import 'home_state.dart';
@@ -28,18 +27,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final currentState = state is HomeLoaded ? state as HomeLoaded : null;
       emit(HomeLoading());
 
-      final products = await getProductsUsecase(event.categorySlug.slug);
+      final products = await getProductsUsecase(event.selectedCategory.slug);
 
       emit(
         HomeLoaded(
           products: products,
           isAdded: false,
           categories: currentState?.categories ?? [],
-          selectedCategory: event.categorySlug,
+          selectedCategory: event.selectedCategory,
         ),
       );
     } catch (e) {
-      emit(HomeError(e.toString()));
+      emit(HomeError(e.toString(), isCategoriesView: false, selectedCategory: event.selectedCategory));
     }
   }
 
@@ -65,7 +64,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ),
         );
       } catch (e) {
-        emit(HomeError(e.toString()));
+        emit(HomeError(e.toString(), isCategoriesView: false,selectedCategory: event.selectedCategory));
       }
     }
   }
@@ -75,13 +74,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     try {
-      if (event.isFromProductsList) {
-        final currentState = state is HomeLoaded ? state as HomeLoaded : null;
+      final currentState = state is HomeLoaded ? state as HomeLoaded : null;
+
+      if (event.isFromProductsList &&
+          (currentState is HomeLoaded && currentState.categories.isNotEmpty)) {
         emit(
           HomeLoaded(
             products: [],
             isAdded: false,
-            categories: currentState?.categories ?? [],
+            categories: currentState.categories,
             selectedCategory: null,
           ),
         );
@@ -93,16 +94,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         final categories = await getCategoriesUsecase();
 
-        emit(
-          HomeLoaded(
-            products: [],
-            isAdded: false,
-            categories: categories,
-          ),
-        );
+        emit(HomeLoaded(products: [], isAdded: false, categories: categories));
       }
     } catch (e) {
-      emit(HomeError(e.toString()));
+      emit(HomeError(e.toString(), isCategoriesView: true));
     }
   }
 }

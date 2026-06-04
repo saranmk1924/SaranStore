@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:saranstore/core/network/error_handler.dart';
 import 'package:saranstore/feature/home/data/model/category_model.dart';
 
 import 'package:saranstore/feature/home/data/model/product_model.dart';
@@ -6,41 +7,59 @@ import 'package:saranstore/feature/home/data/model/product_model.dart';
 class HomeRemoteDatasource {
   final Dio dio;
 
-  HomeRemoteDatasource({required this.dio,});
+  HomeRemoteDatasource({required this.dio});
 
   Future<List<ProductModel>> getProducts(String categorySlug) async {
-    final response = await dio.get("products/category/$categorySlug");
+    try {
+      final response = await dio.get("products/category/$categorySlug");
 
-    final List products = response.data['products'];
+      final List products = response.data['products'];
 
-    return products.map((e) => ProductModel.fromJson(e)).toList();
+      return products.map((e) => ProductModel.fromJson(e)).toList();
+    } on DioException catch (e) {
+      throw ErrorHandler().handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
   Future<ProductModel> addProduct(ProductModel product) async {
-    final response = await dio.post(
-      "products/add",
-      data: {
-        "title": product.title,
+    try {
+      final response = await dio.post(
+        "products/add",
+        data: {
+          "title": product.title,
 
-        "thumbnail": product.thumbnail,
+          "thumbnail": product.thumbnail,
 
-        "price": product.price,
+          "price": product.price,
 
-        "rating": product.rating,
-      },
-    );
+          "rating": product.rating,
+        },
+      );
 
-    return ProductModel.fromJson(response.data);
+      return ProductModel.fromJson(response.data);
+    } on DioException catch (e) {
+      throw ErrorHandler().handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
   Future<List<CategoryModel>> getCategories() async {
-    final response = await dio.get("products/categories");
+    try {
+      final response = await dio.get("products/categories");
 
-    final List categories = response.data;
+      final List categories = response.data;
 
-    return categories
-        .map((category) => CategoryModel.fromJson(category))
-        .toList();
+      return categories
+          .map((category) => CategoryModel.fromJson(category))
+          .toList();
+    } on DioException catch (e) {
+      throw ErrorHandler().handleDioError(e);
+    } catch (e) {
+      throw e.toString();
+    }
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_textformfield.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
+import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
@@ -14,7 +15,10 @@ class AddProductDialog {
   final TextEditingController _priceController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final _formKey = GlobalKey<FormState>();
-  void addProduct(BuildContext context) {
+  void addProduct({
+    required BuildContext context,
+    required CategoryEntity selectedCategory,
+  }) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -104,8 +108,11 @@ class AddProductDialog {
                                       },
                                     ),
                                     SsTextformfield(
-                                      keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                      
+                                      keyboardType:
+                                          TextInputType.numberWithOptions(
+                                            decimal: true,
+                                          ),
+
                                       controller: _priceController,
                                       labelText: "Price",
                                       validator: (v) {
@@ -114,7 +121,7 @@ class AddProductDialog {
                                         }
                                         final regex = RegExp(r'^\d+(\.\d+)?$');
 
-                                        if(!regex.hasMatch(v)){
+                                        if (!regex.hasMatch(v)) {
                                           return "Enter valid price";
                                         }
                                         return null;
@@ -143,6 +150,8 @@ class AddProductDialog {
                                                     0.0,
                                                 rating: 0.0,
                                               ),
+                                              selectedCategory:
+                                                  selectedCategory,
                                             ),
                                           );
 

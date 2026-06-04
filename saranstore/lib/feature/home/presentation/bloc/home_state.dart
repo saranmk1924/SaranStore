@@ -24,6 +24,11 @@ class HomeLoaded extends HomeState {
 
 class HomeError extends HomeState {
   final String message;
-
-  HomeError(this.message);
+  final bool isCategoriesView;
+  final CategoryEntity? selectedCategory;
+  HomeError(
+    this.message, {
+    required this.isCategoriesView,
+     this.selectedCategory,
+  });
 }

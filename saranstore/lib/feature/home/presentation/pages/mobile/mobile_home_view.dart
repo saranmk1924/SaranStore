@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_loader.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/common_widget/ss_textformfield.dart';
@@ -30,11 +31,13 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   void initState() {
     super.initState();
 
-    context.read<HomeBloc>().add(FetchCategoriesEvent(isFromProductsList: false));
+    context.read<HomeBloc>().add(
+      FetchCategoriesEvent(isFromProductsList: false),
+    );
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _productsScrollController.dispose();
     _categoriesScrollController.dispose();
@@ -109,9 +112,37 @@ class _MobileHomeViewState extends State<MobileHomeView> {
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Center(
-                  child: Text(
-                    state.message,
-                    style: TextStyle(color: AppPalette.red),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.error_outline,
+                        color: AppPalette.red,
+                        size: 70,
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        state.message,
+                        style: TextStyle(color: AppPalette.red, fontSize: 18),
+                      ),
+                      SizedBox(height: 15),
+                      SsButton(
+                        onPressed: () {
+                          if (state.isCategoriesView) {
+                            context.read<HomeBloc>().add(
+                              FetchCategoriesEvent(isFromProductsList: false),
+                            );
+                          } else {
+                            context.read<HomeBloc>().add(
+                              FetchProductsEvent(
+                                selectedCategory: state.selectedCategory!,
+                              ),
+                            );
+                          }
+                        },
+                        buttonText: 'Retry',
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -174,7 +205,9 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                             return GestureDetector(
                               onTap: () {
                                 context.read<HomeBloc>().add(
-                                  FetchProductsEvent(categorySlug: category),
+                                  FetchProductsEvent(
+                                    selectedCategory: category,
+                                  ),
                                 );
                               },
                               child: CategoryCard(category: category),
@@ -301,7 +334,10 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                         foregroundColor: AppPalette.black,
                         elevation: 20,
                         onPressed: () {
-                          AddProductDialog().addProduct(context);
+                          AddProductDialog().addProduct(
+                            context: context,
+                            selectedCategory: state.selectedCategory!,
+                          );
                           // ProductEntity product = ProductEntity(
                           //   id: 10,
                           //   title: "CM Vijay",

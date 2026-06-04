@@ -4,13 +4,14 @@ import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 abstract class HomeEvent {}
 
 class FetchProductsEvent extends HomeEvent {
-  final CategoryEntity categorySlug;
-  FetchProductsEvent({required this.categorySlug});
+  final CategoryEntity selectedCategory;
+  FetchProductsEvent({required this.selectedCategory});
 }
 
 class AddProductEvent extends HomeEvent {
   final ProductEntity product;
-  AddProductEvent({required this.product});
+  final CategoryEntity selectedCategory;
+  AddProductEvent({required this.product, required this.selectedCategory});
 }
 
 class FetchCategoriesEvent extends HomeEvent {
