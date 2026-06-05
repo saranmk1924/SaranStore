@@ -1,3 +1,4 @@
+import 'package:saranstore/core/enums/product_sort_type_enum.dart';
 import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
 
 import '../../domain/entity/product_entity.dart';
@@ -13,12 +14,18 @@ class HomeLoaded extends HomeState {
   final List<CategoryEntity> categories;
   final CategoryEntity? selectedCategory;
   final bool isAdded;
+  final String searchProductQuery;
+  final String searchCategoryQuery;
+  final ProductSortTypeEnum sortType;
 
   HomeLoaded({
     required this.products,
     required this.isAdded,
     required this.categories,
     this.selectedCategory,
+    required this.searchProductQuery,
+    required this.searchCategoryQuery,
+    required this.sortType,
   });
 }
 
@@ -29,6 +36,6 @@ class HomeError extends HomeState {
   HomeError(
     this.message, {
     required this.isCategoriesView,
-     this.selectedCategory,
+    this.selectedCategory,
   });
 }

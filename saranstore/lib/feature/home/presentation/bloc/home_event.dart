@@ -1,3 +1,4 @@
+import 'package:saranstore/core/enums/product_sort_type_enum.dart';
 import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 
@@ -17,4 +18,19 @@ class AddProductEvent extends HomeEvent {
 class FetchCategoriesEvent extends HomeEvent {
   final bool isFromProductsList;
   FetchCategoriesEvent({required this.isFromProductsList});
+}
+
+class SearchCategoryEvent extends HomeEvent {
+  final String searchQuery;
+  SearchCategoryEvent({required this.searchQuery});
+}
+
+class SearchProductEvent extends HomeEvent {
+  final String searchQuery;
+  SearchProductEvent({required this.searchQuery});
+}
+
+class SortProductsEvent extends HomeEvent {
+  final ProductSortTypeEnum sortType;
+  SortProductsEvent({required this.sortType});
 }

@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:saranstore/core/constant/app_palette.dart';
+
+class NoResultFound extends StatelessWidget {
+  const NoResultFound({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.sentiment_dissatisfied_outlined,
+            color: AppPalette.secondaryColor,
+            size: 70,
+          ),
+          SizedBox(height: 5),
+          Text(
+            "No Results found",
+            style: TextStyle(color: AppPalette.secondaryColor, fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
+}

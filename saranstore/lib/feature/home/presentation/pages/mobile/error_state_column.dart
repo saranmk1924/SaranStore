@@ -23,6 +23,7 @@ class ErrorStateColumn extends StatelessWidget {
             Text(
               state.message,
               style: TextStyle(color: AppPalette.red, fontSize: 18),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 15),
             SsButton(

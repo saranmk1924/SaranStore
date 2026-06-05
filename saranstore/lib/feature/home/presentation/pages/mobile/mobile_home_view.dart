@@ -76,6 +76,8 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                 state: state,
                 searchCategoryController: searchCategoryController,
                 categoriesScrollController: categoriesScrollController,
+                productsScrollController: productsScrollController,
+                searchProductController: searchProductController,
               );
             }
 
@@ -84,6 +86,8 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                 productsScrollController: productsScrollController,
                 searchProductController: searchProductController,
                 state: state,
+                searchCategoryController: searchCategoryController,
+                categoriesScrollController: categoriesScrollController,
               );
             }
 

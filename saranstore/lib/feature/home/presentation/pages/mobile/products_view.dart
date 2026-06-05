@@ -2,35 +2,197 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/common_widget/ss_textformfield.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
+import 'package:saranstore/core/enums/product_sort_type_enum.dart';
+import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/add_product_dialog.dart';
+import 'package:saranstore/feature/home/presentation/pages/mobile/no_result_found.dart';
 import 'package:saranstore/feature/home/presentation/widgets/product_card.dart';
 
 class ProductsView extends StatelessWidget {
   final ScrollController productsScrollController;
   final TextEditingController searchProductController;
+  final TextEditingController searchCategoryController;
+  final ScrollController categoriesScrollController;
   final HomeLoaded state;
   const ProductsView({
     super.key,
     required this.productsScrollController,
     required this.searchProductController,
     required this.state,
+    required this.searchCategoryController,
+    required this.categoriesScrollController,
   });
 
   @override
   Widget build(BuildContext context) {
+    final List<ProductEntity> filteredProducts = state.products
+        .where(
+          (product) => product.title.toLowerCase().contains(
+            state.searchProductQuery.toLowerCase(),
+          ),
+        )
+        .toList();
+
+    switch (state.sortType) {
+      case ProductSortTypeEnum.priceHighToLow:
+        filteredProducts.sort((a, b) => b.price.compareTo(a.price));
+        break;
+      case ProductSortTypeEnum.priceLowToHigh:
+        filteredProducts.sort((a, b) => a.price.compareTo(b.price));
+      case ProductSortTypeEnum.ratingHighToLow:
+        filteredProducts.sort((a, b) => b.rating.compareTo(a.rating));
+      default:
+        filteredProducts;
+    }
     return Stack(
       alignment: Alignment.center,
       children: [
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-              child: SsTextformfield(
-                controller: searchProductController,
-                labelText: 'Search product',
+              padding: const EdgeInsets.only(left: 15, right: 10, top: 15),
+              child: Row(
+                spacing: 5,
+                children: [
+                  Expanded(
+                    child: SsTextformfield(
+                      controller: searchProductController,
+                      labelText: 'Search product',
+                      onChanged: (value) {
+                        context.read<HomeBloc>().add(
+                          SearchProductEvent(searchQuery: value),
+                        );
+                      },
+                    ),
+                  ),
+
+                  PopupMenuButton<ProductSortTypeEnum>(
+                    tooltip: 'Filter',
+                    icon: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor:
+                              state.sortType == ProductSortTypeEnum.none
+                              ? AppPalette.grey
+                              : AppPalette.secondaryColor,
+                          radius: 23,
+                        ),
+                        CircleAvatar(
+                          backgroundColor: AppPalette.primaryColor,
+                          radius: 21,
+                          child: Icon(
+                            Icons.sort,
+                            color: state.sortType == ProductSortTypeEnum.none
+                                ? AppPalette.grey
+                                : AppPalette.secondaryColor,
+                            size: 35,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // initialValue: ProductSortTypeEnum.all,
+                    color: AppPalette.secondaryColor,
+                    onSelected: (value) {
+                      context.read<HomeBloc>().add(
+                        SortProductsEvent(sortType: value),
+                      );
+                    },
+                    itemBuilder: (_) {
+                      return [
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: ProductSortTypeEnum.none,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: state.sortType == ProductSortTypeEnum.none
+                                  ? AppPalette.orange
+                                  : AppPalette.transparent,
+                            ),
+                            child: Text(
+                              "None",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: ProductSortTypeEnum.priceLowToHigh,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  state.sortType ==
+                                      ProductSortTypeEnum.priceLowToHigh
+                                  ? AppPalette.orange
+                                  : AppPalette.transparent,
+                            ),
+                            child: Text(
+                              "Price low to high",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: ProductSortTypeEnum.priceHighToLow,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  state.sortType ==
+                                      ProductSortTypeEnum.priceHighToLow
+                                  ? AppPalette.orange
+                                  : AppPalette.transparent,
+                            ),
+                            child: Text(
+                              "Price high to low",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          padding: EdgeInsets.zero,
+                          value: ProductSortTypeEnum.ratingHighToLow,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  state.sortType ==
+                                      ProductSortTypeEnum.ratingHighToLow
+                                  ? AppPalette.orange
+                                  : AppPalette.transparent,
+                            ),
+                            child: Text(
+                              "Rating high to low",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ];
+                    },
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 6),
@@ -42,6 +204,7 @@ class ProductsView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      searchCategoryController.clear();
                       context.read<HomeBloc>().add(
                         FetchCategoriesEvent(isFromProductsList: true),
                       );
@@ -83,23 +246,25 @@ class ProductsView extends StatelessWidget {
                 thumbColor: AppPalette.secondaryColor,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: GridView.builder(
-                    controller: productsScrollController,
-                    primary: false,
-                    itemCount: state.products.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 0.68,
-                        ),
-                    itemBuilder: (context, index) {
-                      final product = state.products[index];
+                  child: filteredProducts.isNotEmpty
+                      ? GridView.builder(
+                          controller: productsScrollController,
+                          primary: false,
+                          itemCount: filteredProducts.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                                childAspectRatio: 0.68,
+                              ),
+                          itemBuilder: (context, index) {
+                            final product = filteredProducts[index];
 
-                      return ProductCard(product: product);
-                    },
-                  ),
+                            return ProductCard(product: product);
+                          },
+                        )
+                      : NoResultFound(),
                 ),
               ),
             ),
@@ -129,6 +294,7 @@ class ProductsView extends StatelessWidget {
                 AddProductDialog().addProduct(
                   context: context,
                   selectedCategory: state.selectedCategory!,
+                  searchProductController: searchProductController,
                 );
                 // ProductEntity product = ProductEntity(
                 //   id: 10,

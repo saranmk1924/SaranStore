@@ -14,10 +14,12 @@ class AddProductDialog {
   final TextEditingController _thumbnailController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  
   final _formKey = GlobalKey<FormState>();
   void addProduct({
     required BuildContext context,
     required CategoryEntity selectedCategory,
+    required TextEditingController searchProductController
   }) {
     showDialog(
       barrierDismissible: false,
@@ -135,6 +137,8 @@ class AddProductDialog {
                                               .validate())) {
                                             return;
                                           }
+
+                                          searchProductController.clear();
 
                                           context.read<HomeBloc>().add(
                                             AddProductEvent(

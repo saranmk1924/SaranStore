@@ -8,12 +8,15 @@ class SsTextformfield extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onChanged;
   const SsTextformfield({
     super.key,
     required this.controller,
     required this.labelText,
     this.keyboardType,
-    this.validator, this.inputFormatters,
+    this.validator,
+    this.inputFormatters,
+    this.onChanged,
   });
 
   @override
@@ -22,6 +25,7 @@ class SsTextformfield extends StatelessWidget {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: TextFormField(
         controller: controller,
+        onChanged: onChanged,
         cursorColor: AppPalette.white,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: TextStyle(color: AppPalette.white),

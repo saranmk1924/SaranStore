@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saranstore/core/enums/product_sort_type_enum.dart';
 import 'package:saranstore/feature/home/domain/usecase/add_product_usecase.dart';
 import 'package:saranstore/feature/home/domain/usecase/get_categories_usecase.dart';
 import '../../domain/usecase/get_products_usecase.dart';
@@ -17,6 +18,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<FetchProductsEvent>(_fetchProducts);
     on<AddProductEvent>(_addProduct);
     on<FetchCategoriesEvent>(_fetchCategories);
+    on<SearchCategoryEvent>(_searchCategory);
+    on<SearchProductEvent>(_searchProduct);
+    on<SortProductsEvent>(_sortProducts);
   }
 
   Future<void> _fetchProducts(
@@ -35,10 +39,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           isAdded: false,
           categories: currentState?.categories ?? [],
           selectedCategory: event.selectedCategory,
+          searchProductQuery: '',
+          searchCategoryQuery: '',
+          sortType: currentState?.sortType??ProductSortTypeEnum.none
         ),
       );
     } catch (e) {
-      emit(HomeError(e.toString(), isCategoriesView: false, selectedCategory: event.selectedCategory));
+      emit(
+        HomeError(
+          e.toString(),
+          isCategoriesView: false,
+          selectedCategory: event.selectedCategory,
+        ),
+      );
     }
   }
 
@@ -61,10 +74,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             isAdded: true,
             categories: currentState.categories,
             selectedCategory: currentState.selectedCategory,
+            searchProductQuery: '',
+            searchCategoryQuery: '',
+            sortType: currentState.sortType
           ),
         );
       } catch (e) {
-        emit(HomeError(e.toString(), isCategoriesView: false,selectedCategory: event.selectedCategory));
+        emit(
+          HomeError(
+            e.toString(),
+            isCategoriesView: false,
+            selectedCategory: event.selectedCategory,
+          ),
+        );
       }
     }
   }
@@ -84,6 +106,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             isAdded: false,
             categories: currentState.categories,
             selectedCategory: null,
+            searchProductQuery: '',
+            searchCategoryQuery: '', sortType: ProductSortTypeEnum.none,
           ),
         );
         return;
@@ -94,10 +118,81 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         final categories = await getCategoriesUsecase();
 
-        emit(HomeLoaded(products: [], isAdded: false, categories: categories));
+        emit(
+          HomeLoaded(
+            products: [],
+            isAdded: false,
+            categories: categories,
+            searchProductQuery: '',
+            searchCategoryQuery: '',
+            sortType: ProductSortTypeEnum.none,
+          ),
+        );
       }
     } catch (e) {
       emit(HomeError(e.toString(), isCategoriesView: true));
+    }
+  }
+
+  Future<void> _searchProduct(
+    SearchProductEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state is HomeLoaded) {
+      final currentState = state as HomeLoaded;
+      emit(
+        HomeLoaded(
+          products: currentState.products,
+          isAdded: false,
+          categories: currentState.categories,
+          searchProductQuery: event.searchQuery,
+          searchCategoryQuery: '',
+          selectedCategory: currentState.selectedCategory,
+          sortType: currentState.sortType,
+        ),
+      );
+    }
+  }
+
+  Future<void> _searchCategory(
+    SearchCategoryEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state is HomeLoaded) {
+      final currentState = state as HomeLoaded;
+
+      emit(
+        HomeLoaded(
+          products: [],
+          isAdded: false,
+          categories: currentState.categories,
+          searchProductQuery: '',
+          searchCategoryQuery: event.searchQuery,
+          selectedCategory: null, sortType: currentState.sortType,
+          
+        ),
+      );
+    }
+  }
+
+  Future<void> _sortProducts(
+    SortProductsEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state is HomeLoaded) {
+      final currentState = state as HomeLoaded;
+
+      emit(
+        HomeLoaded(
+          products: currentState.products,
+          isAdded: false,
+          categories: currentState.categories,
+          searchProductQuery: currentState.searchProductQuery,
+          searchCategoryQuery: '',
+          sortType: event.sortType,
+          selectedCategory: currentState.selectedCategory
+        ),
+      );
     }
   }
 }
