@@ -79,37 +79,6 @@ class DeleteConfirmationDialog {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 15,
-                  right: 15,
-                  child: InkWell(
-                    splashColor: AppPalette.transparent,
-                    highlightColor: AppPalette.transparent,
-                    hoverColor: AppPalette.transparent,
-                    onTap: () {
-                      Navigator.pop(dialogContext);
-                    },
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 17,
-                          backgroundColor: AppPalette.secondaryColor,
-                        ),
-                        CircleAvatar(
-                          radius: 15,
-                          backgroundColor: AppPalette.primaryColor,
-                        ),
-                        Icon(
-                          Icons.close,
-                          size: 23,
-                          fontWeight: FontWeight.w100,
-                          color: AppPalette.secondaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
