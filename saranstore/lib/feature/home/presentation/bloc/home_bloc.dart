@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/enums/product_sort_type_enum.dart';
+import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/domain/usecase/add_product_usecase.dart';
 import 'package:saranstore/feature/home/domain/usecase/get_categories_usecase.dart';
 import '../../domain/usecase/get_products_usecase.dart';
@@ -21,6 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SearchCategoryEvent>(_searchCategory);
     on<SearchProductEvent>(_searchProduct);
     on<SortProductsEvent>(_sortProducts);
+    on<DeleteProductEvent>(_deleteProduct);
   }
 
   Future<void> _fetchProducts(
@@ -191,6 +193,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           searchProductQuery: '',
           searchCategoryQuery: '',
           sortType: event.sortType,
+          selectedCategory: currentState.selectedCategory,
+        ),
+      );
+    }
+  }
+
+  Future<void> _deleteProduct(
+    DeleteProductEvent event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state is HomeLoaded) {
+      final currentState = state as HomeLoaded;
+
+      final List<ProductEntity> updatedProducts = currentState.products
+          .where((product) => product.id != event.productId)
+          .toList();
+
+      emit(
+        HomeLoaded(
+          products: updatedProducts,
+          isAdded: false,
+          categories: currentState.categories,
+          searchProductQuery: currentState.searchProductQuery,
+          searchCategoryQuery: '',
+          sortType: currentState.sortType,
           selectedCategory: currentState.selectedCategory,
         ),
       );

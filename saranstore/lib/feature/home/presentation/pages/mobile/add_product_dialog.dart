@@ -34,7 +34,7 @@ class AddProductDialog {
               height: 420,
               borderRadius: 12,
               linearGradient: LinearGradient(
-                colors: [AppPalette.primaryColor, AppPalette.transparent],
+                colors: [AppPalette.primaryColor, AppPalette.black],
               ),
 
               border: 4,
@@ -49,7 +49,6 @@ class AddProductDialog {
                     mainAxisSize: MainAxisSize.min,
                     // spacing: 10,
                     children: [
-                    
                       Expanded(
                         child: RawScrollbar(
                           padding: EdgeInsets.only(right: 4),
@@ -164,8 +163,8 @@ class AddProductDialog {
                     ],
                   ),
                   Positioned(
-                    top: 10,
-                    right: 10,
+                    top: 15,
+                    right: 15,
                     child: InkWell(
                       splashColor: AppPalette.transparent,
                       highlightColor: AppPalette.transparent,

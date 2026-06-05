@@ -38,6 +38,7 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_launcher_icons: ^0.14.4
+  flutter_slidable: ^4.0.3
   get_it: ^9.2.1
   glassmorphism: ^3.0.0
   go_router: ^17.2.3

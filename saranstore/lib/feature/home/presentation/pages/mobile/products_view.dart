@@ -199,37 +199,50 @@ class ProductsView extends StatelessWidget {
             const SizedBox(height: 2),
             Padding(
               padding: const EdgeInsets.all(12),
-              child: Row(
-                spacing: 10,
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      searchCategoryController.clear();
-                      context.read<HomeBloc>().add(
-                        FetchCategoriesEvent(isFromProductsList: true),
-                      );
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: AppPalette.secondaryColor,
-                      child: Icon(
-                        Icons.arrow_back_sharp,
-                        color: AppPalette.primaryColor,
-                        size: 25,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    spacing: 10,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          searchCategoryController.clear();
+                          context.read<HomeBloc>().add(
+                            FetchCategoriesEvent(isFromProductsList: true),
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: AppPalette.secondaryColor,
+                          child: Icon(
+                            Icons.arrow_back_sharp,
+                            color: AppPalette.primaryColor,
+                            size: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
 
-                  Text(
-                    state.selectedCategory?.name ?? '',
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: AppPalette.white,
+                      Text(
+                        state.selectedCategory?.name ?? '',
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: AppPalette.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Tooltip(
+                      message:
+                          'Swipe any product card from right to left to view the edit and delete options.',
+                      child: Icon(Icons.info_outline, color: AppPalette.orange),
                     ),
                   ),
                 ],

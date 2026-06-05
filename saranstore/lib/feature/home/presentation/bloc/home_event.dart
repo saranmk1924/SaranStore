@@ -34,3 +34,8 @@ class SortProductsEvent extends HomeEvent {
   final ProductSortTypeEnum sortType;
   SortProductsEvent({required this.sortType});
 }
+
+class DeleteProductEvent extends HomeEvent {
+  final int productId;
+  DeleteProductEvent({required this.productId});
+}

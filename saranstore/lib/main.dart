@@ -13,7 +13,7 @@ void main() async {
   await initDependencies();
 
   runApp(const SaranStoreApp());
-}
+} 
 
 class SaranStoreApp extends StatelessWidget {
   const SaranStoreApp({super.key});
