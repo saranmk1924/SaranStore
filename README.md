@@ -14,9 +14,21 @@ This project was developed as a hands-on implementation of modern Flutter develo
 
 ![Categories](saranstore/assets/screenshots/categories.jpeg)
 
+### Category Search
+
+![Categories](saranstore/assets/screenshots/category_search.jpeg)
+
 ### Products Screen
 
 ![Products](saranstore/assets/screenshots/products.jpeg)
+
+### Product Search
+
+![Products](saranstore/assets/screenshots/product_search.jpeg)
+
+### Products Sort
+
+![Products](saranstore/assets/screenshots/products_sort.jpeg)
 
 ### Add Product
 

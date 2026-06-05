@@ -8,7 +8,7 @@ class SsLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CupertinoActivityIndicator(
       color: AppPalette.secondaryColor,
-      radius: 20,
+      radius: 30,
       animating: true,
     );
   }

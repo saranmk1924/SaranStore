@@ -17,7 +17,7 @@ class NoResultFound extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            "No Results found",
+            "No Result found",
             style: TextStyle(color: AppPalette.secondaryColor, fontSize: 18),
           ),
         ],

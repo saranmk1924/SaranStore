@@ -87,13 +87,14 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Icon(
                           Icons.star,
                           size: 16,
                           color: AppPalette.secondaryColor,
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 1),
                         Text(
                           product.rating.toString(),
                           style: TextStyle(color: AppPalette.white),

@@ -41,7 +41,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           selectedCategory: event.selectedCategory,
           searchProductQuery: '',
           searchCategoryQuery: '',
-          sortType: currentState?.sortType??ProductSortTypeEnum.none
+          sortType: currentState?.sortType ?? ProductSortTypeEnum.none,
         ),
       );
     } catch (e) {
@@ -76,7 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             selectedCategory: currentState.selectedCategory,
             searchProductQuery: '',
             searchCategoryQuery: '',
-            sortType: currentState.sortType
+            sortType: currentState.sortType,
           ),
         );
       } catch (e) {
@@ -107,7 +107,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             categories: currentState.categories,
             selectedCategory: null,
             searchProductQuery: '',
-            searchCategoryQuery: '', sortType: ProductSortTypeEnum.none,
+            searchCategoryQuery: '',
+            sortType: ProductSortTypeEnum.none,
           ),
         );
         return;
@@ -168,8 +169,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           categories: currentState.categories,
           searchProductQuery: '',
           searchCategoryQuery: event.searchQuery,
-          selectedCategory: null, sortType: currentState.sortType,
-          
+          selectedCategory: null,
+          sortType: currentState.sortType,
         ),
       );
     }
@@ -187,10 +188,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           products: currentState.products,
           isAdded: false,
           categories: currentState.categories,
-          searchProductQuery: currentState.searchProductQuery,
+          searchProductQuery: '',
           searchCategoryQuery: '',
           sortType: event.sortType,
-          selectedCategory: currentState.selectedCategory
+          selectedCategory: currentState.selectedCategory,
         ),
       );
     }

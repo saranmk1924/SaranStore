@@ -14,12 +14,12 @@ class AddProductDialog {
   final TextEditingController _thumbnailController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  
+
   final _formKey = GlobalKey<FormState>();
   void addProduct({
     required BuildContext context,
     required CategoryEntity selectedCategory,
-    required TextEditingController searchProductController
+    required TextEditingController searchProductController,
   }) {
     showDialog(
       barrierDismissible: false,
@@ -49,17 +49,7 @@ class AddProductDialog {
                     mainAxisSize: MainAxisSize.min,
                     // spacing: 10,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 16,
-                          left: 16,
-                          top: 16,
-                        ),
-                        child: Stack(
-                          alignment: Alignment.centerLeft,
-                          children: [],
-                        ),
-                      ),
+                    
                       Expanded(
                         child: RawScrollbar(
                           padding: EdgeInsets.only(right: 4),

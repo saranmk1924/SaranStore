@@ -18,7 +18,11 @@ class ErrorStateColumn extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, color: AppPalette.red, size: 70),
+            Icon(
+              Icons.sentiment_dissatisfied_outlined,
+              color: AppPalette.red,
+              size: 70,
+            ),
             SizedBox(height: 5),
             Text(
               state.message,

@@ -70,7 +70,7 @@ class ProductsView extends StatelessWidget {
                   ),
 
                   PopupMenuButton<ProductSortTypeEnum>(
-                    tooltip: 'Filter',
+                    tooltip: 'Sort',
                     icon: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -97,6 +97,7 @@ class ProductsView extends StatelessWidget {
                     // initialValue: ProductSortTypeEnum.all,
                     color: AppPalette.secondaryColor,
                     onSelected: (value) {
+                      searchProductController.clear();
                       context.read<HomeBloc>().add(
                         SortProductsEvent(sortType: value),
                       );
@@ -195,7 +196,7 @@ class ProductsView extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 2),
             Padding(
               padding: const EdgeInsets.all(12),
               child: Row(

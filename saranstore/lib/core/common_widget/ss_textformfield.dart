@@ -24,13 +24,23 @@ class SsTextformfield extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: TextFormField(
+        onTapOutside: (_) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
         controller: controller,
         onChanged: onChanged,
+        maxLength: 100,
+        maxLines: 1,
         cursorColor: AppPalette.white,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: TextStyle(color: AppPalette.white),
-        inputFormatters: inputFormatters,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(100),
+          ...?inputFormatters,
+        ],
+
         decoration: InputDecoration(
+          counterText: '',
           labelText: labelText,
           floatingLabelStyle: TextStyle(color: AppPalette.secondaryColor),
           labelStyle: TextStyle(color: AppPalette.grey),

@@ -45,54 +45,57 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPalette.primaryColor,
-      appBar: AppBar(
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
         backgroundColor: AppPalette.primaryColor,
-        elevation: 0,
-        title: HeaderRow(),
-      ),
-      body: BlocListener<HomeBloc, HomeState>(
-        listener: (context, state) {
-          if (state is HomeLoaded && state.isAdded) {
-            SsSnackbar().show(
-              context: context,
-              message: "Product added successfully :)",
-            );
-          }
-        },
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is HomeLoading) {
-              return const Center(child: SsLoader());
-            }
-
-            if (state is HomeError) {
-              return ErrorStateColumn(state: state);
-            }
-
-            if (state is HomeLoaded && state.selectedCategory == null) {
-              return CategoryView(
-                state: state,
-                searchCategoryController: searchCategoryController,
-                categoriesScrollController: categoriesScrollController,
-                productsScrollController: productsScrollController,
-                searchProductController: searchProductController,
+        appBar: AppBar(
+          backgroundColor: AppPalette.primaryColor,
+          elevation: 0,
+          title: HeaderRow(),
+        ),
+        body: BlocListener<HomeBloc, HomeState>(
+          listener: (context, state) {
+            if (state is HomeLoaded && state.isAdded) {
+              SsSnackbar().show(
+                context: context,
+                message: "Product added successfully :)",
               );
             }
-
-            if (state is HomeLoaded && state.selectedCategory != null) {
-              return ProductsView(
-                productsScrollController: productsScrollController,
-                searchProductController: searchProductController,
-                state: state,
-                searchCategoryController: searchCategoryController,
-                categoriesScrollController: categoriesScrollController,
-              );
-            }
-
-            return const SizedBox();
           },
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoading) {
+                return const Center(child: SsLoader());
+              }
+
+              if (state is HomeError) {
+                return ErrorStateColumn(state: state);
+              }
+
+              if (state is HomeLoaded && state.selectedCategory == null) {
+                return CategoryView(
+                  state: state,
+                  searchCategoryController: searchCategoryController,
+                  categoriesScrollController: categoriesScrollController,
+                  productsScrollController: productsScrollController,
+                  searchProductController: searchProductController,
+                );
+              }
+
+              if (state is HomeLoaded && state.selectedCategory != null) {
+                return ProductsView(
+                  productsScrollController: productsScrollController,
+                  searchProductController: searchProductController,
+                  state: state,
+                  searchCategoryController: searchCategoryController,
+                  categoriesScrollController: categoriesScrollController,
+                );
+              }
+
+              return const SizedBox();
+            },
+          ),
         ),
       ),
     );
