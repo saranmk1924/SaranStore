@@ -117,6 +117,7 @@ class AddProductDialog {
 
                                       controller: _priceController,
                                       labelText: "Price",
+                                      maxLength: 7,
                                       validator: (v) {
                                         if (v == null || v.isEmpty) {
                                           return "Enter the price";

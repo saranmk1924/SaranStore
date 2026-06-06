@@ -37,7 +37,15 @@ class ProductCard extends StatelessWidget {
                 searchProductController: searchProductController,
                 title: product.title,
                 thumbnail: product.thumbnail,
-                price: product.price,
+                price: product.price.toString().contains('.')
+                    ? double.tryParse(
+                            '${product.price.toString().split('.').first}.${product.price.toString().split('.').last.substring(0, 1)}',
+                          ) ??
+                          0.0
+                    : double.tryParse(
+                            product.price.toString().substring(0, 6),
+                          ) ??
+                          0.0,
                 id: product.id,
                 rating: product.rating,
               );
@@ -53,7 +61,6 @@ class ProductCard extends StatelessWidget {
                 context: context,
                 product: product,
               );
-             
             },
             backgroundColor: AppPalette.primaryColor,
             foregroundColor: AppPalette.red,
@@ -128,7 +135,7 @@ class ProductCard extends StatelessWidget {
                           ).createShader(bounds);
                         },
                         child: Text(
-                          '\$${product.price}',
+                          '\$${product.price.toString().contains('.') ? '${product.price.toString().split('.').first}.${product.price.toString().split('.').last.substring(0, 1)}' : product.price.toString().substring(0, 6)}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

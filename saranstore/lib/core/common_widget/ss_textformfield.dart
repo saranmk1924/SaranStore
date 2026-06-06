@@ -9,6 +9,7 @@ class SsTextformfield extends StatelessWidget {
   final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String)? onChanged;
+  final int? maxLength;
   const SsTextformfield({
     super.key,
     required this.controller,
@@ -17,6 +18,7 @@ class SsTextformfield extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.onChanged,
+    this.maxLength,
   });
 
   @override
@@ -29,7 +31,7 @@ class SsTextformfield extends StatelessWidget {
         },
         controller: controller,
         onChanged: onChanged,
-        maxLength: 100,
+        maxLength: maxLength ?? 100,
         maxLines: 1,
         cursorColor: AppPalette.white,
         autovalidateMode: AutovalidateMode.onUserInteraction,
