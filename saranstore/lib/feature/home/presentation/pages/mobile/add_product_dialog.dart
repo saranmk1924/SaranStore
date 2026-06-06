@@ -109,26 +109,44 @@ class AddProductDialog {
                                         return null;
                                       },
                                     ),
-                                    SsTextformfield(
-                                      keyboardType:
-                                          TextInputType.numberWithOptions(
-                                            decimal: true,
+                                    Stack(
+                                      alignment: Alignment.centerRight,
+                                      children: [
+                                        SsTextformfield(
+                                          keyboardType:
+                                              TextInputType.numberWithOptions(
+                                                decimal: true,
+                                              ),
+
+                                          controller: _priceController,
+                                          labelText: "Price",
+                                          maxLength: 7,
+                                          validator: (v) {
+                                            if (v == null || v.isEmpty) {
+                                              return "Enter the price";
+                                            }
+                                            final regex = RegExp(
+                                              r'^\d+(\.\d)?$',
+                                            );
+
+                                            if (!regex.hasMatch(v)) {
+                                              return "Enter valid price";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        Positioned(
+                                          right: 5,
+                                          child: Tooltip(
+                                            message:
+                                                '-> Only one decimal place is allowed\n-> Max length allowed: 7\n-> Digits & a decimal only allowed',
+                                            child: Icon(
+                                              Icons.info_outline,
+                                              color: AppPalette.orange,
+                                            ),
                                           ),
-
-                                      controller: _priceController,
-                                      labelText: "Price",
-                                      maxLength: 7,
-                                      validator: (v) {
-                                        if (v == null || v.isEmpty) {
-                                          return "Enter the price";
-                                        }
-                                        final regex = RegExp(r'^\d+(\.\d+)?$');
-
-                                        if (!regex.hasMatch(v)) {
-                                          return "Enter valid price";
-                                        }
-                                        return null;
-                                      },
+                                        ),
+                                      ],
                                     ),
                                     Center(
                                       child: SsButton(
