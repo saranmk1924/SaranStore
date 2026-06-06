@@ -113,6 +113,14 @@ class AddProductDialog {
                                       alignment: Alignment.centerRight,
                                       children: [
                                         SsTextformfield(
+                                          suffix: Tooltip(
+                                            message:
+                                                '-> Only one decimal place is allowed\n-> Max length allowed: 7\n-> Digits & a decimal only allowed',
+                                            child: Icon(
+                                              Icons.info_outline,
+                                              color: AppPalette.orange,
+                                            ),
+                                          ),
                                           keyboardType:
                                               TextInputType.numberWithOptions(
                                                 decimal: true,
@@ -134,17 +142,6 @@ class AddProductDialog {
                                             }
                                             return null;
                                           },
-                                        ),
-                                        Positioned(
-                                          right: 5,
-                                          child: Tooltip(
-                                            message:
-                                                '-> Only one decimal place is allowed\n-> Max length allowed: 7\n-> Digits & a decimal only allowed',
-                                            child: Icon(
-                                              Icons.info_outline,
-                                              color: AppPalette.orange,
-                                            ),
-                                          ),
                                         ),
                                       ],
                                     ),
