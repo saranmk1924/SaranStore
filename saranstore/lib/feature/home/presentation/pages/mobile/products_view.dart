@@ -53,7 +53,7 @@ class ProductsView extends StatelessWidget {
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 10, top: 15),
+              padding: const EdgeInsets.only(left: 15, right: 10, top: 8),
               child: Row(
                 spacing: 5,
                 children: [
@@ -315,7 +315,9 @@ class ProductsView extends StatelessWidget {
                   searchProductController: searchProductController,
                   title: '',
                   thumbnail: '',
-                  price: -1, id: -1, rating: 0.0,
+                  price: -1,
+                  id: -1,
+                  rating: 0.0,
                 );
                 // ProductEntity product = ProductEntity(
                 //   id: 10,
