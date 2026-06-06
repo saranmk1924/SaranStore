@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
+import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/common_widget/ss_textformfield.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
@@ -20,7 +21,15 @@ class AddProductDialog {
     required BuildContext context,
     required CategoryEntity selectedCategory,
     required TextEditingController searchProductController,
+    required int id,
+    required double rating,
+    required String title,
+    required String thumbnail,
+    required double price,
   }) {
+    _titleController.text = title;
+    _thumbnailController.text = thumbnail;
+    _priceController.text = price != -1 ? price.toString() : '';
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -71,7 +80,9 @@ class AddProductDialog {
                                   spacing: 20,
                                   children: [
                                     Text(
-                                      "Add product",
+                                      title.isNotEmpty
+                                          ? "Edit product"
+                                          : "Add product",
                                       style: TextStyle(
                                         color: AppPalette.secondaryColor,
                                         fontSize: 22,
@@ -120,37 +131,71 @@ class AddProductDialog {
                                     ),
                                     Center(
                                       child: SsButton(
-                                        prefixIcon: Icons.add,
+                                        prefixIcon: title.isNotEmpty
+                                            ? Icons.edit
+                                            : Icons.add,
                                         onPressed: () {
-                                          if (!(_formKey.currentState!
-                                              .validate())) {
-                                            return;
-                                          }
+                                          if (title.isNotEmpty) {
+                                            if (!(_formKey.currentState!
+                                                .validate())) {
+                                              return;
+                                            }
 
-                                          searchProductController.clear();
-
-                                          context.read<HomeBloc>().add(
-                                            AddProductEvent(
-                                              product: ProductEntity(
-                                                id: 0,
-                                                title: _titleController.text,
-                                                thumbnail:
-                                                    _thumbnailController.text,
-                                                price:
-                                                    double.tryParse(
-                                                      _priceController.text,
-                                                    ) ??
-                                                    0.0,
-                                                rating: 0.0,
+                                            context.read<HomeBloc>().add(
+                                              EditProductEvent(
+                                                updatedProduct: ProductEntity(
+                                                  id: id,
+                                                  title: _titleController.text,
+                                                  thumbnail:
+                                                      _thumbnailController.text,
+                                                  price:
+                                                      double.tryParse(
+                                                        _priceController.text,
+                                                      ) ??
+                                                      0.0,
+                                                  rating: rating,
+                                                ),
                                               ),
-                                              selectedCategory:
-                                                  selectedCategory,
-                                            ),
-                                          );
+                                            );
+                                            Navigator.pop(dialogContext);
+                                            SsSnackbar().show(
+                                              context: context,
+                                              message:
+                                                  "Product edited successfully :)",
+                                            );
+                                          } else {
+                                            if (!(_formKey.currentState!
+                                                .validate())) {
+                                              return;
+                                            }
 
-                                          Navigator.pop(dialogContext);
+                                            searchProductController.clear();
+
+                                            context.read<HomeBloc>().add(
+                                              AddProductEvent(
+                                                product: ProductEntity(
+                                                  id: 0,
+                                                  title: _titleController.text,
+                                                  thumbnail:
+                                                      _thumbnailController.text,
+                                                  price:
+                                                      double.tryParse(
+                                                        _priceController.text,
+                                                      ) ??
+                                                      0.0,
+                                                  rating: 0.0,
+                                                ),
+                                                selectedCategory:
+                                                    selectedCategory,
+                                              ),
+                                            );
+
+                                            Navigator.pop(dialogContext);
+                                          }
                                         },
-                                        buttonText: "Add",
+                                        buttonText: title.isNotEmpty
+                                            ? "Edit"
+                                            : "Add",
                                       ),
                                     ),
                                   ],

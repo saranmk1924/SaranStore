@@ -1,19 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:saranstore/core/common_widget/ss_shimmer.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
+import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
+import 'package:saranstore/feature/home/presentation/pages/mobile/add_product_dialog.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/delete_confirmation_dialog.dart';
 
 import '../../domain/entity/product_entity.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductEntity product;
+  final HomeLoaded state;
+  final TextEditingController searchProductController;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.state,
+    required this.searchProductController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,18 @@ class ProductCard extends StatelessWidget {
         extentRatio: 0.75,
         children: [
           SlidableAction(
-            onPressed: (value) {},
+            onPressed: (value) {
+              AddProductDialog().addProduct(
+                context: context,
+                selectedCategory: state.selectedCategory!,
+                searchProductController: searchProductController,
+                title: product.title,
+                thumbnail: product.thumbnail,
+                price: product.price,
+                id: product.id,
+                rating: product.rating,
+              );
+            },
             backgroundColor: AppPalette.primaryColor,
             foregroundColor: AppPalette.orange,
             icon: Icons.edit,
@@ -36,6 +53,7 @@ class ProductCard extends StatelessWidget {
                 context: context,
                 product: product,
               );
+             
             },
             backgroundColor: AppPalette.primaryColor,
             foregroundColor: AppPalette.red,

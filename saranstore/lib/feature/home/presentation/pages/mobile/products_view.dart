@@ -275,7 +275,11 @@ class ProductsView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final product = filteredProducts[index];
 
-                            return ProductCard(product: product);
+                            return ProductCard(
+                              product: product,
+                              state: state,
+                              searchProductController: searchProductController,
+                            );
                           },
                         )
                       : NoResultFound(),
@@ -309,6 +313,9 @@ class ProductsView extends StatelessWidget {
                   context: context,
                   selectedCategory: state.selectedCategory!,
                   searchProductController: searchProductController,
+                  title: '',
+                  thumbnail: '',
+                  price: -1, id: -1, rating: 0.0,
                 );
                 // ProductEntity product = ProductEntity(
                 //   id: 10,

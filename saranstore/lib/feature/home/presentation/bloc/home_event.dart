@@ -39,3 +39,8 @@ class DeleteProductEvent extends HomeEvent {
   final int productId;
   DeleteProductEvent({required this.productId});
 }
+
+class EditProductEvent extends HomeEvent{
+  final ProductEntity updatedProduct;
+  EditProductEvent({required this.updatedProduct});
+}

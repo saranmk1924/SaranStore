@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
+import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
@@ -69,6 +70,10 @@ class DeleteConfirmationDialog {
                                   DeleteProductEvent(productId: product.id),
                                 );
                                 Navigator.pop(context);
+                                SsSnackbar().show(
+                                  context: context,
+                                  message: "Product deleted successfully :)",
+                                );
                               },
                               buttonText: 'Yes',
                             ),
