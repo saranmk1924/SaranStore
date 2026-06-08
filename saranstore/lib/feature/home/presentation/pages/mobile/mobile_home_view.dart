@@ -29,9 +29,13 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   void initState() {
     super.initState();
 
+    final state = context.read<HomeBloc>().state; 
+
+    if(state is! HomeLoaded){
     context.read<HomeBloc>().add(
       FetchCategoriesEvent(isFromProductsList: false),
     );
+    }
   }
 
   @override
@@ -52,7 +56,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
         appBar: AppBar(
           backgroundColor: AppPalette.primaryColor,
           elevation: 0,
-          title: HeaderRow(),
+          title: HeaderRow(isCartPage: false,),
         ),
         body: BlocListener<HomeBloc, HomeState>(
           listener: (context, state) {

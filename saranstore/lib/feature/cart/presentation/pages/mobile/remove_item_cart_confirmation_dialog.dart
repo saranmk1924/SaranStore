@@ -4,15 +4,14 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
-import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
+import 'package:saranstore/feature/cart/domain/entity/cart_item_entity.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_event.dart';
 
-class DeleteConfirmationDialog {
+class RemoveItemCartConfirmationDialog {
   void showDialogBox({
     required BuildContext context,
-    required ProductEntity product,
-    String? message
+    required CartItemEntity product,
   }) {
     showDialog(
       context: context,
@@ -42,7 +41,7 @@ class DeleteConfirmationDialog {
 
                     children: [
                       Text(
-                       message?? "Are you sure you want to delete this product?",
+                       "Are you sure you want to remove this product from cart?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppPalette.secondaryColor,
@@ -67,13 +66,13 @@ class DeleteConfirmationDialog {
                             flex: 2,
                             child: SsButton(
                               onPressed: () {
-                                context.read<HomeBloc>().add(
-                                  DeleteProductEvent(productId: product.id),
+                                context.read<CartBloc>().add(
+                                  RemoveProductEvent(product: product),
                                 );
                                 Navigator.pop(context);
                                 SsSnackbar().show(
                                   context: context,
-                                  message: "Product deleted successfully :)",
+                                  message: "Product removed from cart successfully",
                                 );
                               },
                               buttonText: 'Yes',

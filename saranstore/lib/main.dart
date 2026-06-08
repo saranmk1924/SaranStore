@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/dependencies/init_dependencies.dart';
 import 'package:saranstore/core/router/app_router.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ class SaranStoreApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(create: (_) => serviceLocator<HomeBloc>()),
+        BlocProvider<CartBloc>(create: (_)=>serviceLocator<CartBloc>())
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,

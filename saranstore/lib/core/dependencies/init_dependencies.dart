@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/home/data/datasource/home_remote_datasource.dart';
 import 'package:saranstore/feature/home/data/repository/home_repository_impl.dart';
 import 'package:saranstore/feature/home/domain/repository/home_repository.dart';
@@ -51,4 +52,7 @@ Future<void> initDependencies() async {
   serviceLocator.registerLazySingleton<GetCategoriesUsecase>(
     () => GetCategoriesUsecase(repository: serviceLocator()),
   );
+
+  /*---------------- CART ------------------------*/
+  serviceLocator.registerFactory<CartBloc>(()=> CartBloc());
 }

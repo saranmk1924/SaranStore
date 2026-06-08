@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/common_widget/ss_textformfield.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/core/enums/product_sort_type_enum.dart';
+import 'package:saranstore/feature/cart/domain/entity/cart_item_entity.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_state.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
@@ -275,10 +278,27 @@ class ProductsView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final product = filteredProducts[index];
 
-                            return ProductCard(
-                              product: product,
-                              state: state,
-                              searchProductController: searchProductController,
+                            return BlocBuilder<CartBloc, CartState>(
+                              builder: (context, cartState) {
+                                CartItemEntity? cartItem;
+                                if (cartState is CartLoaded) {
+                                  try {
+                                    cartItem = cartState.products.firstWhere(
+                                      (cartProduct) =>
+                                          cartProduct.product.id == product.id,
+                                    );
+                                  } catch (e) {
+                                    cartItem == null;
+                                  }
+                                }
+                                return ProductCard(
+                                  product: product,
+                                  state: state,
+                                  searchProductController:
+                                      searchProductController,
+                                  cartItem: cartItem,
+                                );
+                              },
                             );
                           },
                         )

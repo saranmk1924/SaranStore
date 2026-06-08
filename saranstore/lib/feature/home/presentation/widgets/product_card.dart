@@ -1,8 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_shimmer.dart';
+import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
+import 'package:saranstore/feature/cart/domain/entity/cart_item_entity.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_event.dart';
+import 'package:saranstore/feature/cart/presentation/bloc/cart_state.dart';
+import 'package:saranstore/feature/cart/presentation/pages/mobile/remove_item_cart_confirmation_dialog.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/add_product_dialog.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/delete_confirmation_dialog.dart';
@@ -13,12 +21,14 @@ class ProductCard extends StatelessWidget {
   final ProductEntity product;
   final HomeLoaded state;
   final TextEditingController searchProductController;
+  final CartItemEntity? cartItem;
 
   const ProductCard({
     super.key,
     required this.product,
     required this.state,
     required this.searchProductController,
+    this.cartItem,
   });
 
   @override
@@ -163,9 +173,97 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+              child: SizedBox(
+                height: 35,
+                child: AnimatedSwitcher(
+                  duration: Duration(microseconds: 500),
+                  child: cartItem != null
+                      ? _cartCounterWidget(
+                          cartItem: cartItem!,
+                          context: context,
+                        )
+                      : Center(
+                          child: SsButton(
+                            onPressed: () {
+                              context.read<CartBloc>().add(
+                                AddProductEvent(
+                                  product: CartItemEntity(
+                                    product: product,
+                                    quantity: 1,
+                                  ),
+                                ),
+                              );
+                              SsSnackbar().show(
+                                context: context,
+                                message:
+                                    "Product added to cart successfully :)",
+                              );
+                            },
+                            buttonText: "Add to cart",
+                          ),
+                        ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _cartCounterWidget({
+    required BuildContext context,
+    required CartItemEntity cartItem,
+  }) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            RemoveItemCartConfirmationDialog().showDialogBox(
+              context: context,
+              product: cartItem,
+            );
+          },
+          child: Icon(Icons.delete, color: AppPalette.red),
+        ),
+        Spacer(),
+        GestureDetector(
+          onTap: () {
+            if (cartItem.quantity == 1) {
+              RemoveItemCartConfirmationDialog().showDialogBox(
+                context: context,
+                product: cartItem,
+              );
+            } else {
+              context.read<CartBloc>().add(
+                DecreaseProductQuantityEvent(productId: product.id),
+              );
+            }
+          },
+          child: Icon(Icons.remove_circle_outlined, color: AppPalette.orange),
+        ),
+        SizedBox(width: 10),
+        Text(
+          cartItem.quantity.toString(),
+          style: TextStyle(color: AppPalette.secondaryColor, fontSize: 18),
+        ),
+        SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            context.read<CartBloc>().add(
+              IncreaseProductQuantityEvent(productId: product.id),
+            );
+          },
+          child: Icon(
+            Icons.add_circle_outlined,
+            color: AppPalette.orange,
+            fontWeight: FontWeight.w100,
+          ),
+        ),
+      ],
     );
   }
 }
