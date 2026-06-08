@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/dependencies/init_dependencies.dart';
+import 'package:saranstore/core/router/app_router.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
-import 'package:saranstore/feature/splash/presentation/pages/mobile/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +13,7 @@ void main() async {
   await initDependencies();
 
   runApp(const SaranStoreApp());
-} 
+}
 
 class SaranStoreApp extends StatelessWidget {
   const SaranStoreApp({super.key});
@@ -24,7 +24,8 @@ class SaranStoreApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeBloc>(create: (_) => serviceLocator<HomeBloc>()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           scrollbars: false,
         ),
@@ -39,7 +40,6 @@ class SaranStoreApp extends StatelessWidget {
             surfaceTintColor: Colors.transparent,
           ),
         ),
-        home: const SplashPage(),
       ),
     );
   }

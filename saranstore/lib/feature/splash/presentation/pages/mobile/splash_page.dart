@@ -1,10 +1,8 @@
 import 'dart:math';
-
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
-import 'package:saranstore/feature/home/presentation/pages/home_page.dart';
+import 'package:saranstore/core/router/route_names.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -30,6 +28,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(seconds: 5),
     )..repeat();
+
+    _navigateToHome();
   }
 
   @override
@@ -39,54 +39,63 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> _navigateToHome() async {
+    await Future.delayed(Duration(seconds: 4));
+
+    if (mounted) {
+      context.go(RouteNames.home);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: AnimatedSplashScreen(
-        duration: 4000,
+      child: Scaffold(
         backgroundColor: AppPalette.primaryColor,
-        splashIconSize: 380,
-
-        splash: AnimatedBuilder(
-          animation: Listenable.merge([
-            _clockwiseController,
-            _antiClockwiseController,
-          ]),
-          builder: (context, child) {
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                // Outer Ring (Clockwise)
-                Transform.rotate(
-                  angle: _clockwiseController.value * 2 * pi,
-                  child: CustomPaint(
-                    size: const Size(340, 340),
-                    painter: DottedCirclePainter(dotCount: 48, dotRadius: 4),
+        body: Center(
+          child: AnimatedBuilder(
+            animation: Listenable.merge([
+              _clockwiseController,
+              _antiClockwiseController,
+            ]),
+            builder: (context, child) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Outer Ring (Clockwise)
+                  Transform.rotate(
+                    angle: _clockwiseController.value * 2 * pi,
+                    child: CustomPaint(
+                      size: const Size(340, 340),
+                      painter: DottedCirclePainter(dotCount: 48, dotRadius: 4),
+                    ),
                   ),
-                ),
 
-                // Inner Ring (Anti-Clockwise)
-                Transform.rotate(
-                  angle: -_antiClockwiseController.value * 2 * pi,
-                  child: CustomPaint(
-                    size: const Size(280, 280),
-                    painter: DottedCirclePainter(dotCount: 36, dotRadius: 3.5),
+                  // Inner Ring (Anti-Clockwise)
+                  Transform.rotate(
+                    angle: -_antiClockwiseController.value * 2 * pi,
+                    child: CustomPaint(
+                      size: const Size(280, 280),
+                      painter: DottedCirclePainter(
+                        dotCount: 36,
+                        dotRadius: 3.5,
+                      ),
+                    ),
                   ),
-                ),
 
-                // Logo
-                ClipOval(
-                  child: Image.asset('assets/pngs/app_logo_2.png', width: 240),
-                ),
-              ],
-            );
-          },
+                  // Logo
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/pngs/app_logo_2.png',
+                      width: 240,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
-
-        nextScreen: const HomePage(),
-        pageTransitionType: PageTransitionType.bottomToTop,
-        animationDuration: const Duration(milliseconds: 1000),
       ),
     );
   }
