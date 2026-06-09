@@ -5,7 +5,7 @@ class SsSnackbar {
   void show({required BuildContext context, required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 2),
+        duration: Duration(milliseconds: 1000),
         backgroundColor: AppPalette.white,
         content: Text(
           message,

@@ -9,7 +9,6 @@ import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/feature/cart/domain/entity/cart_item_entity.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_event.dart';
-import 'package:saranstore/feature/cart/presentation/bloc/cart_state.dart';
 import 'package:saranstore/feature/cart/presentation/pages/mobile/remove_item_cart_confirmation_dialog.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/add_product_dialog.dart';
@@ -177,7 +176,7 @@ class ProductCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
               child: SizedBox(
-                height: 35,
+                height: 45,
                 child: AnimatedSwitcher(
                   duration: Duration(microseconds: 500),
                   child: cartItem != null

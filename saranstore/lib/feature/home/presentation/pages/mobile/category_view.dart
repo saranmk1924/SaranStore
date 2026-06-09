@@ -71,36 +71,34 @@ class CategoryView extends StatelessWidget {
             thickness: 5,
             padding: EdgeInsets.only(right: 1),
             thumbColor: AppPalette.secondaryColor,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: filteredCategories.isNotEmpty
-                  ? GridView.builder(
-                      controller: categoriesScrollController,
-                      primary: false,
-                      itemCount: filteredCategories.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 16 / 9,
-                          ),
-                      itemBuilder: (context, index) {
-                        final category = filteredCategories[index];
+            child: filteredCategories.isNotEmpty
+                ? GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    controller: categoriesScrollController,
+                    primary: false,
+                    itemCount: filteredCategories.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 16 / 9,
+                        ),
+                    itemBuilder: (context, index) {
+                      final category = filteredCategories[index];
 
-                        return GestureDetector(
-                          onTap: () {
-                            searchProductController.clear();
-                            context.read<HomeBloc>().add(
-                              FetchProductsEvent(selectedCategory: category),
-                            );
-                          },
-                          child: CategoryCard(category: category),
-                        );
-                      },
-                    )
-                  : NoResultFound(),
-            ),
+                      return GestureDetector(
+                        onTap: () {
+                          searchProductController.clear();
+                          context.read<HomeBloc>().add(
+                            FetchProductsEvent(selectedCategory: category),
+                          );
+                        },
+                        child: CategoryCard(category: category),
+                      );
+                    },
+                  )
+                : NoResultFound(),
           ),
         ),
         const SizedBox(height: 6),

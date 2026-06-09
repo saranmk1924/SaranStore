@@ -261,49 +261,47 @@ class ProductsView extends StatelessWidget {
                 thickness: 5,
                 padding: EdgeInsets.only(right: 1),
                 thumbColor: AppPalette.secondaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: filteredProducts.isNotEmpty
-                      ? GridView.builder(
-                          controller: productsScrollController,
-                          primary: false,
-                          itemCount: filteredProducts.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                                childAspectRatio: 0.68,
-                              ),
-                          itemBuilder: (context, index) {
-                            final product = filteredProducts[index];
+                child: filteredProducts.isNotEmpty
+                    ? GridView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        controller: productsScrollController,
+                        primary: false,
+                        itemCount: filteredProducts.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 0.68,
+                            ),
+                        itemBuilder: (context, index) {
+                          final product = filteredProducts[index];
 
-                            return BlocBuilder<CartBloc, CartState>(
-                              builder: (context, cartState) {
-                                CartItemEntity? cartItem;
-                                if (cartState is CartLoaded) {
-                                  try {
-                                    cartItem = cartState.products.firstWhere(
-                                      (cartProduct) =>
-                                          cartProduct.product.id == product.id,
-                                    );
-                                  } catch (e) {
-                                    cartItem == null;
-                                  }
+                          return BlocBuilder<CartBloc, CartState>(
+                            builder: (context, cartState) {
+                              CartItemEntity? cartItem;
+                              if (cartState is CartLoaded) {
+                                try {
+                                  cartItem = cartState.products.firstWhere(
+                                    (cartProduct) =>
+                                        cartProduct.product.id == product.id,
+                                  );
+                                } catch (e) {
+                                  cartItem == null;
                                 }
-                                return ProductCard(
-                                  product: product,
-                                  state: state,
-                                  searchProductController:
-                                      searchProductController,
-                                  cartItem: cartItem,
-                                );
-                              },
-                            );
-                          },
-                        )
-                      : NoResultFound(),
-                ),
+                              }
+                              return ProductCard(
+                                product: product,
+                                state: state,
+                                searchProductController:
+                                    searchProductController,
+                                cartItem: cartItem,
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : NoResultFound(),
               ),
             ),
           ],

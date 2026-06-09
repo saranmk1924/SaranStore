@@ -5,10 +5,11 @@ import 'package:saranstore/core/router/route_names.dart';
 
 class HeaderRow extends StatelessWidget {
   final bool isCartPage;
-  const HeaderRow({super.key, required this.isCartPage});
+  const HeaderRow({super.key, this.isCartPage=false});
 
   @override
   Widget build(BuildContext context) {
+   
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -30,14 +31,14 @@ class HeaderRow extends StatelessWidget {
             isCartPage
                 ? SizedBox.shrink()
                 : GestureDetector(
-                  onTap: (){
-                    context.push(RouteNames.cart);
-                  },
-                  child: const Icon(
+                    onTap: () {
+                      context.push(RouteNames.cart);
+                    },
+                    child: const Icon(
                       Icons.shopping_cart_outlined,
                       color: AppPalette.white,
                     ),
-                ),
+                  ),
           ],
         ),
 

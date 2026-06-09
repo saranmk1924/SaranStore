@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saranstore/core/common_widget/ss_loader.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
-import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_state.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/category_view.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/error_state_column.dart';
-import 'package:saranstore/feature/home/presentation/pages/mobile/header_row.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/products_view.dart';
 
 class MobileHomeView extends StatefulWidget {
@@ -29,12 +27,12 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   void initState() {
     super.initState();
 
-    final state = context.read<HomeBloc>().state; 
+    final state = context.read<HomeBloc>().state;
 
-    if(state is! HomeLoaded){
-    context.read<HomeBloc>().add(
-      FetchCategoriesEvent(isFromProductsList: false),
-    );
+    if (state is! HomeLoaded) {
+      context.read<HomeBloc>().add(
+        FetchCategoriesEvent(isFromProductsList: false),
+      );
     }
   }
 
@@ -51,55 +49,47 @@ class _MobileHomeViewState extends State<MobileHomeView> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        backgroundColor: AppPalette.primaryColor,
-        appBar: AppBar(
-          backgroundColor: AppPalette.primaryColor,
-          elevation: 0,
-          title: HeaderRow(isCartPage: false,),
-        ),
-        body: BlocListener<HomeBloc, HomeState>(
-          listener: (context, state) {
-            if (state is HomeLoaded && state.isAdded) {
-              SsSnackbar().show(
-                context: context,
-                message: "Product added successfully :)",
+      child: BlocListener<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if (state is HomeLoaded && state.isAdded) {
+            SsSnackbar().show(
+              context: context,
+              message: "Product added successfully :)",
+            );
+          }
+        },
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeLoading) {
+              return const Center(child: SsLoader());
+            }
+      
+            if (state is HomeError) {
+              return ErrorStateColumn(state: state);
+            }
+      
+            if (state is HomeLoaded && state.selectedCategory == null) {
+              return CategoryView(
+                state: state,
+                searchCategoryController: searchCategoryController,
+                categoriesScrollController: categoriesScrollController,
+                productsScrollController: productsScrollController,
+                searchProductController: searchProductController,
               );
             }
+      
+            if (state is HomeLoaded && state.selectedCategory != null) {
+              return ProductsView(
+                productsScrollController: productsScrollController,
+                searchProductController: searchProductController,
+                state: state,
+                searchCategoryController: searchCategoryController,
+                categoriesScrollController: categoriesScrollController,
+              );
+            }
+      
+            return const SizedBox();
           },
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              if (state is HomeLoading) {
-                return const Center(child: SsLoader());
-              }
-
-              if (state is HomeError) {
-                return ErrorStateColumn(state: state);
-              }
-
-              if (state is HomeLoaded && state.selectedCategory == null) {
-                return CategoryView(
-                  state: state,
-                  searchCategoryController: searchCategoryController,
-                  categoriesScrollController: categoriesScrollController,
-                  productsScrollController: productsScrollController,
-                  searchProductController: searchProductController,
-                );
-              }
-
-              if (state is HomeLoaded && state.selectedCategory != null) {
-                return ProductsView(
-                  productsScrollController: productsScrollController,
-                  searchProductController: searchProductController,
-                  state: state,
-                  searchCategoryController: searchCategoryController,
-                  categoriesScrollController: categoriesScrollController,
-                );
-              }
-
-              return const SizedBox();
-            },
-          ),
         ),
       ),
     );

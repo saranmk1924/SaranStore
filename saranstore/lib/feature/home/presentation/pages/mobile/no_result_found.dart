@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 
 class NoResultFound extends StatelessWidget {
-  const NoResultFound({super.key});
+  final String? message;
+  const NoResultFound({super.key, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class NoResultFound extends StatelessWidget {
           ),
           SizedBox(height: 5),
           Text(
-            "No Result found",
+            message??"No Result found",
             style: TextStyle(color: AppPalette.secondaryColor, fontSize: 18),
           ),
         ],

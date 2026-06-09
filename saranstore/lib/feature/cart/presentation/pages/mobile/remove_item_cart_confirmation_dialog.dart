@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
@@ -41,7 +42,7 @@ class RemoveItemCartConfirmationDialog {
 
                     children: [
                       Text(
-                       "Are you sure you want to remove this product from cart?",
+                        "Are you sure you want to remove this product from cart?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppPalette.secondaryColor,
@@ -56,7 +57,7 @@ class RemoveItemCartConfirmationDialog {
                             flex: 2,
                             child: SsButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop();
                               },
                               buttonText: 'No',
                             ),
@@ -69,10 +70,11 @@ class RemoveItemCartConfirmationDialog {
                                 context.read<CartBloc>().add(
                                   RemoveProductEvent(product: product),
                                 );
-                                Navigator.pop(context);
+                                context.pop();
                                 SsSnackbar().show(
                                   context: context,
-                                  message: "Product removed from cart successfully",
+                                  message:
+                                      "Product removed from cart successfully",
                                 );
                               },
                               buttonText: 'Yes',
