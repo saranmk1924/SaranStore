@@ -25,13 +25,24 @@ class CartTotalWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Total (${state.quantity} items)",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppPalette.secondaryColor,
-                    fontSize: 20,
-                  ),
+                Row(
+                  spacing: 5,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      color: AppPalette.secondaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    Text(
+                      "Total (${state.quantity} items)",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppPalette.secondaryColor,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
 
                 ShaderMask(

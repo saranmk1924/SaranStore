@@ -12,7 +12,8 @@ class CartHeaderRow extends StatelessWidget {
       children: [
         /// Left & Right Items
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
+          spacing: 10,
           children: [
             GestureDetector(
               onTap: () {
@@ -28,17 +29,22 @@ class CartHeaderRow extends StatelessWidget {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 3,
+              children: [
+                const Text(
+                  'Cart',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ],
-        ),
-
-        /// Center Title
-        const Text(
-          'Cart',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
       ],
     );
