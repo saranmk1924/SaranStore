@@ -166,10 +166,15 @@ class CartItem extends StatelessWidget {
               IncreaseProductQuantityEvent(productId: cartItem.product.id),
             );
           },
-          child: Icon(
-            Icons.add_circle_outlined,
-            color: AppPalette.orange,
-            fontWeight: FontWeight.w100,
+          child: Tooltip(
+            message: cartItem.quantity >= 10 ? 'No more stock available' : '',
+            child: Icon(
+              Icons.add_circle_outlined,
+              color: cartItem.quantity >= 10
+                  ? AppPalette.grey
+                  : AppPalette.orange,
+              fontWeight: FontWeight.w100,
+            ),
           ),
         ),
       ],

@@ -258,7 +258,9 @@ class ProductCard extends StatelessWidget {
           },
           child: Icon(
             Icons.add_circle_outlined,
-            color: AppPalette.orange,
+            color: cartItem.quantity >= 10
+                ? AppPalette.grey
+                : AppPalette.orange,
             fontWeight: FontWeight.w100,
           ),
         ),

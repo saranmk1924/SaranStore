@@ -50,7 +50,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           products.add(
             CartItemEntity(
               product: currentState.products[i].product,
-              quantity: currentState.products[i].quantity < 1000
+              quantity: currentState.products[i].quantity < 10
                   ? currentState.products[i].quantity + 1
                   : currentState.products[i].quantity,
             ),

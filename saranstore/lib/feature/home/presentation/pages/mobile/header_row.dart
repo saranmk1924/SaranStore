@@ -5,11 +5,10 @@ import 'package:saranstore/core/router/route_names.dart';
 
 class HeaderRow extends StatelessWidget {
   final bool isCartPage;
-  const HeaderRow({super.key, this.isCartPage=false});
+  const HeaderRow({super.key, this.isCartPage = false});
 
   @override
   Widget build(BuildContext context) {
-   
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -56,7 +55,7 @@ class HeaderRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppPalette.white,
             ),
           ),
         ),
