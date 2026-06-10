@@ -95,7 +95,7 @@ class HeaderRow extends StatelessWidget {
           child: const Text(
             'SaranStore',
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 26,
               fontWeight: FontWeight.bold,
               color: AppPalette.white,
             ),
