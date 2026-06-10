@@ -22,6 +22,18 @@ This project was developed as a hands-on implementation of modern Flutter develo
 
 ![Products](saranstore/assets/screenshots/products.jpeg)
 
+### Product details
+
+![Add Product](saranstore/assets/screenshots/product_details.jpeg)
+
+### Product reviews (1)
+
+![Add Product](saranstore/assets/screenshots/product_reviews_1.jpeg)
+
+### Product reviews (2)
+
+![Add Product](saranstore/assets/screenshots/product_reviews_2.jpeg)
+
 ### Product Search
 
 ![Products](saranstore/assets/screenshots/product_search.jpeg)
