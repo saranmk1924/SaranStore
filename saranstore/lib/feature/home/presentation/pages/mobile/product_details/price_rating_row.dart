@@ -26,7 +26,7 @@ class PriceRatingRow extends StatelessWidget {
             child: Text(
               '\$${product.price.toString().contains('.') ? '${product.price.toString().split('.').first}.${product.price.toString().split('.').last.substring(0, 1)}' : product.price.toString().substring(0, 6)}',
               style: const TextStyle(
-                fontSize: 22,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -48,13 +48,13 @@ class PriceRatingRow extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.star,
-                    size: 24,
+                    size: 22,
                     color: AppPalette.secondaryColor,
                   ),
                   const SizedBox(width: 2),
                   Text(
                     product.rating.toString(),
-                    style: TextStyle(color: AppPalette.white, fontSize: 20),
+                    style: TextStyle(color: AppPalette.white, fontSize: 18),
                   ),
                 ],
               ),
