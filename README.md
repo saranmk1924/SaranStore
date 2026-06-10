@@ -45,3 +45,19 @@ This project was developed as a hands-on implementation of modern Flutter develo
 ### Delete Product
 
 ![Add Product](saranstore/assets/screenshots/delete_product.jpeg)
+
+### Add to cart (1)
+
+![Add Product](saranstore/assets/screenshots/add_to_cart_1.jpeg)
+
+### Add to cart (2)
+
+![Add Product](saranstore/assets/screenshots/add_to_cart_2.jpeg)
+
+### Cart page
+
+![Add Product](saranstore/assets/screenshots/cart_page.jpeg)
+
+### Remove from cart
+
+![Add Product](saranstore/assets/screenshots/remove_from_cart.jpeg)
