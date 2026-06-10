@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/common_widget/ss_shimmer.dart';
 import 'package:saranstore/core/common_widget/ss_snackbar.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
+import 'package:saranstore/core/router/route_names.dart';
 import 'package:saranstore/feature/cart/domain/entity/cart_item_entity.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_event.dart';
@@ -88,91 +90,109 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: product.thumbnail,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    memCacheWidth: null,
-                    memCacheHeight: null,
-                    useOldImageOnUrlChange: false,
-                    placeholder: (context, url) => SsShimmer(),
-                    errorWidget: (context, url, error) {
-                      return Icon(
-                        Icons.broken_image,
-                        color: AppPalette.grey,
-                        size: 80,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: AppPalette.white,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ShaderMask(
-                        shaderCallback: (bounds) {
-                          return const LinearGradient(
-                            colors: [
-                              AppPalette.secondaryColor,
-                              AppPalette.orange,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ).createShader(bounds);
-                        },
-                        child: Text(
-                          '\$${product.price.toString().contains('.') ? '${product.price.toString().split('.').first}.${product.price.toString().split('.').last.substring(0, 1)}' : product.price.toString().substring(0, 6)}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+              child: GestureDetector(
+                onTap: () {
+                  context.push(
+                    '${RouteNames.productDetails}/${product.id}',
+                    extra: product,
+                  );
+                },
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          right: 8,
+                          top: 8,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(16),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: product.thumbnail,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            memCacheWidth: null,
+                            memCacheHeight: null,
+                            useOldImageOnUrlChange: false,
+                            placeholder: (context, url) => SsShimmer(),
+                            errorWidget: (context, url, error) {
+                              return Icon(
+                                Icons.broken_image,
+                                color: AppPalette.grey,
+                                size: 80,
+                              );
+                            },
                           ),
                         ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.star,
-                            size: 16,
-                            color: AppPalette.secondaryColor,
-                          ),
-                          const SizedBox(width: 1),
                           Text(
-                            product.rating.toString(),
-                            style: TextStyle(color: AppPalette.white),
+                            product.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppPalette.white,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ShaderMask(
+                                shaderCallback: (bounds) {
+                                  return const LinearGradient(
+                                    colors: [
+                                      AppPalette.secondaryColor,
+                                      AppPalette.orange,
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ).createShader(bounds);
+                                },
+                                child: Text(
+                                  '\$${product.price.toString().contains('.') ? '${product.price.toString().split('.').first}.${product.price.toString().split('.').last.substring(0, 1)}' : product.price.toString().substring(0, 6)}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    size: 16,
+                                    color: AppPalette.secondaryColor,
+                                  ),
+                                  const SizedBox(width: 1),
+                                  Text(
+                                    product.rating.toString(),
+                                    style: TextStyle(color: AppPalette.white),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
               child: SizedBox(

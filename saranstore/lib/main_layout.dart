@@ -13,7 +13,8 @@ class MainLayout extends StatelessWidget {
       backgroundColor: AppPalette.primaryColor,
       appBar: AppBar(
         backgroundColor: AppPalette.primaryColor,
-        title: HeaderRow(isCartPage: isCartPage,),
+        titleSpacing: 0,
+        title: HeaderRow(isCartPage: isCartPage),
       ),
       body: child,
     );

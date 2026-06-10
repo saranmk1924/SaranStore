@@ -16,68 +16,71 @@ class HeaderRow extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         /// Left & Right Items
-        Row(
-          mainAxisAlignment: isCartPage
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.spaceBetween,
-          children: [
-            ClipOval(
-              child: Image.asset(
-                'assets/pngs/app_logo.png',
-                width: 45,
-                height: 45,
-                fit: BoxFit.cover,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: isCartPage
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.spaceBetween,
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  'assets/pngs/app_logo.png',
+                  width: 45,
+                  height: 45,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
 
-            isCartPage
-                ? SizedBox.shrink()
-                : GestureDetector(
-                    onTap: () {
-                      context.push(RouteNames.cart);
-                    },
-                    child: BlocBuilder<CartBloc, CartState>(
-                      builder: (context, state) {
-                        if (state is CartLoaded) {
-                          return Stack(
-                            clipBehavior: Clip.none,
-                            alignment: AlignmentGeometry.bottomRight,
-                            children: [
-                              const Icon(
-                                Icons.shopping_cart_outlined,
-                                color: AppPalette.white,
-                                size: 35,
-                              ),
+              isCartPage
+                  ? SizedBox.shrink()
+                  : GestureDetector(
+                      onTap: () {
+                        context.push(RouteNames.cart);
+                      },
+                      child: BlocBuilder<CartBloc, CartState>(
+                        builder: (context, state) {
+                          if (state is CartLoaded) {
+                            return Stack(
+                              clipBehavior: Clip.none,
+                              alignment: AlignmentGeometry.bottomRight,
+                              children: [
+                                const Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: AppPalette.white,
+                                  size: 35,
+                                ),
 
-                              state.quantity > 0
-                                  ? Positioned(
-                                      bottom: -9,
-                                      right: -5,
+                                state.quantity > 0
+                                    ? Positioned(
+                                        bottom: -9,
+                                        right: -5,
 
-                                      child: CircleAvatar(
-                                        radius: 10,
-                                        backgroundColor:
-                                            AppPalette.secondaryColor,
-                                        child: Text(
-                                          state.quantity.toString(),
+                                        child: CircleAvatar(
+                                          radius: 10,
+                                          backgroundColor:
+                                              AppPalette.secondaryColor,
+                                          child: Text(
+                                            state.quantity.toString(),
 
-                                          style: TextStyle(
-                                            color: AppPalette.black,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
+                                            style: TextStyle(
+                                              color: AppPalette.black,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  : SizedBox.shrink(),
-                            ],
-                          );
-                        }
-                        return SizedBox.shrink();
-                      },
+                                      )
+                                    : SizedBox.shrink(),
+                              ],
+                            );
+                          }
+                          return SizedBox.shrink();
+                        },
+                      ),
                     ),
-                  ),
-          ],
+            ],
+          ),
         ),
 
         /// Center Title

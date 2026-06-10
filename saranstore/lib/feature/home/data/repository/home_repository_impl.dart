@@ -23,13 +23,21 @@ class HomeRepositoryImpl implements HomeRepository {
       thumbnail: product.thumbnail,
       price: product.price,
       rating: product.rating,
+      description: product.description,
+      category: product.category,
+      warrantyInformation: product.warrantyInformation,
+      shippingInformation: product.shippingInformation,
+      availabilityStatus: product.availabilityStatus,
+      reviews: product.reviews,
+      returnPolicy: product.returnPolicy,
+      images: product.images,
     );
 
     return await remoteDatasource.addProduct(model);
   }
 
   @override
-  Future<List<CategoryEntity>> getCategories()async{
+  Future<List<CategoryEntity>> getCategories() async {
     return remoteDatasource.getCategories();
   }
 }

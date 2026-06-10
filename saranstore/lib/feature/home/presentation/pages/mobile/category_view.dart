@@ -70,7 +70,7 @@ class CategoryView extends StatelessWidget {
             radius: const Radius.circular(50),
             thickness: 5,
             padding: EdgeInsets.only(right: 1),
-            thumbColor: AppPalette.secondaryColor,
+            thumbColor: AppPalette.scrollThumbColor,
             child: filteredCategories.isNotEmpty
                 ? GridView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

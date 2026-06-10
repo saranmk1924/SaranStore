@@ -7,6 +7,7 @@ class AppPalette {
 
   /// CSK Yellow
   static const Color secondaryColor = Color(0xFFFFD600);
+  static const Color scrollThumbColor = Color.fromARGB(232, 255, 213, 0);
   static const Color white = Color(0xFFF5F5F5);
   static const Color black = Color(0xFF212121);
   static const Color orange = Colors.orangeAccent;

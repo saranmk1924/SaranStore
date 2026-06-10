@@ -8,6 +8,7 @@ import 'package:saranstore/feature/home/domain/usecase/add_product_usecase.dart'
 import 'package:saranstore/feature/home/domain/usecase/get_categories_usecase.dart';
 import 'package:saranstore/feature/home/domain/usecase/get_products_usecase.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
+import 'package:saranstore/feature/home/presentation/cubit/image_slider_cubit.dart';
 import '../network/dio_client.dart';
 
 final serviceLocator = GetIt.instance;
@@ -54,5 +55,8 @@ Future<void> initDependencies() async {
   );
 
   /*---------------- CART ------------------------*/
-  serviceLocator.registerFactory<CartBloc>(()=> CartBloc());
+  serviceLocator.registerFactory<CartBloc>(() => CartBloc());
+
+  /*---------------- Image Slider ------------------------*/
+  serviceLocator.registerFactory<ImageSliderCubit>(() => ImageSliderCubit());
 }

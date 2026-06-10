@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:saranstore/core/dependencies/init_dependencies.dart';
 import 'package:saranstore/core/router/app_router.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
+import 'package:saranstore/feature/home/presentation/cubit/image_slider_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,13 +27,12 @@ class SaranStoreApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeBloc>(create: (_) => serviceLocator<HomeBloc>()),
-        BlocProvider<CartBloc>(create: (_)=>serviceLocator<CartBloc>())
+        BlocProvider<CartBloc>(create: (_) => serviceLocator<CartBloc>()),
+        BlocProvider<ImageSliderCubit>(create: (_) => serviceLocator<ImageSliderCubit>())
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
-        scrollBehavior: const MaterialScrollBehavior().copyWith(
-          scrollbars: false,
-        ),
+        scrollBehavior: MyScrollbarBehavior().copyWith(scrollbars: false),
         debugShowCheckedModeBanner: false,
         title: 'SaranStore',
         theme: ThemeData(
@@ -45,4 +47,14 @@ class SaranStoreApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyScrollbarBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.trackpad,
+    PointerDeviceKind.stylus,
+  };
 }

@@ -62,7 +62,7 @@ class AddProductDialog {
                         child: RawScrollbar(
                           padding: EdgeInsets.only(right: 4),
                           controller: _scrollController,
-                          thumbColor: AppPalette.orange,
+                          thumbColor: AppPalette.scrollThumbColor,
                           thickness: 4,
                           radius: Radius.circular(6),
                           child: Center(
