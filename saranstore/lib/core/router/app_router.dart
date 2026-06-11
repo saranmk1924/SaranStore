@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saranstore/core/router/route_names.dart';
+import 'package:saranstore/feature/auth/presentation/pages/login_page.dart';
+import 'package:saranstore/feature/auth/presentation/pages/signup_page.dart';
 import 'package:saranstore/feature/cart/presentation/pages/cart_page.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/pages/home_page.dart';
@@ -14,9 +16,32 @@ class AppRouter {
     routes: [
       GoRoute(
         path: RouteNames.splash,
-        pageBuilder: (context, state) => NoTransitionPage(child: SplashPage()),
+        builder: (context, state) => SplashPage(),
       ),
-      // GoRoute(path: RouteNames.login, builder: (context,state)=>LoginPage()),
+      GoRoute(
+        path: RouteNames.login,
+        pageBuilder: (context, state) {
+          final isFromSplash = (state.extra as Map?)?['is_from_splash'] == true;
+          if (isFromSplash) {
+            return CustomTransitionPage(
+              key: state.pageKey,
+              child: const LoginPage(),
+              transitionDuration: const Duration(milliseconds: 1200),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+            );
+          } else {
+            return NoTransitionPage(child: LoginPage());
+          }
+        },
+      ),
+      GoRoute(
+        path: RouteNames.signup,
+        pageBuilder: (context, state) => NoTransitionPage(child: SignupPage()),
+      ),
+
       ShellRoute(
         builder: ((context, state, child) {
           debugPrint("Shell path = ${state.uri.path}");

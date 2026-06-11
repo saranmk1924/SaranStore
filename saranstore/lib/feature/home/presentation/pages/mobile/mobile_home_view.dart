@@ -29,7 +29,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
 
     final state = context.read<HomeBloc>().state;
 
-    if (state is! HomeLoaded) {
+    if (state is! HomeLoaded || state.selectedCategory == null) {
       context.read<HomeBloc>().add(
         FetchCategoriesEvent(isFromProductsList: false),
       );
@@ -63,11 +63,11 @@ class _MobileHomeViewState extends State<MobileHomeView> {
             if (state is HomeLoading) {
               return const Center(child: SsLoader());
             }
-      
+
             if (state is HomeError) {
               return ErrorStateColumn(state: state);
             }
-      
+
             if (state is HomeLoaded && state.selectedCategory == null) {
               return CategoryView(
                 state: state,
@@ -77,7 +77,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                 searchProductController: searchProductController,
               );
             }
-      
+
             if (state is HomeLoaded && state.selectedCategory != null) {
               return ProductsView(
                 productsScrollController: productsScrollController,
@@ -87,7 +87,7 @@ class _MobileHomeViewState extends State<MobileHomeView> {
                 categoriesScrollController: categoriesScrollController,
               );
             }
-      
+
             return const SizedBox();
           },
         ),

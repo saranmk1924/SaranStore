@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saranstore/core/common_widget/ss_loader.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 
 class SsButton extends StatelessWidget {
@@ -7,6 +8,7 @@ class SsButton extends StatelessWidget {
   final Color? buttonColor;
   final Color? textColor;
   final IconData? prefixIcon;
+  final bool? isLoading;
   const SsButton({
     super.key,
     required this.onPressed,
@@ -14,6 +16,7 @@ class SsButton extends StatelessWidget {
     this.buttonColor,
     this.textColor,
     this.prefixIcon,
+    this.isLoading = false,
   });
 
   @override
@@ -25,7 +28,9 @@ class SsButton extends StatelessWidget {
         ),
         elevation: WidgetStatePropertyAll(5),
         backgroundColor: WidgetStatePropertyAll(
-          buttonColor ?? AppPalette.secondaryColor,
+          isLoading ?? false
+              ? AppPalette.grey
+              : buttonColor ?? AppPalette.secondaryColor,
         ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
@@ -35,6 +40,7 @@ class SsButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           if (prefixIcon != null) ...{
@@ -48,10 +54,20 @@ class SsButton extends StatelessWidget {
           Text(
             buttonText,
             style: TextStyle(
-              color: textColor ?? AppPalette.primaryColor,
+              color: isLoading ?? false
+                  ? AppPalette.white
+                  : textColor ?? AppPalette.primaryColor,
               fontSize: 17,
             ),
           ),
+
+          if (isLoading == true) ...{
+            SizedBox(width: 8),
+            Padding(
+              padding: EdgeInsetsGeometry.only(top: 3),
+              child: SsLoader(color: AppPalette.black, radius: 7.5),
+            ),
+          },
         ],
       ),
     );

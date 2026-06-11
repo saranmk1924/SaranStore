@@ -13,3 +13,5 @@ class LoginEvent extends AuthEvent {
 }
 
 class LogoutEvent extends AuthEvent{}
+
+class ClearAuthError extends AuthEvent{}

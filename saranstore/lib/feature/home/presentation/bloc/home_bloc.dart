@@ -24,6 +24,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SortProductsEvent>(_sortProducts);
     on<DeleteProductEvent>(_deleteProduct);
     on<EditProductEvent>(_editProduct);
+    on<ResetHomeEvent>(_resetHome);
   }
 
   Future<void> _fetchProducts(
@@ -241,7 +242,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         return product;
       }).toList();
 
-      emit(HomeLoaded(
+      emit(
+        HomeLoaded(
           products: updatedProducts,
           isAdded: false,
           categories: currentState.categories,
@@ -249,7 +251,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           searchCategoryQuery: '',
           sortType: currentState.sortType,
           selectedCategory: currentState.selectedCategory,
-        ),);
+        ),
+      );
     }
+  }
+
+  Future<void> _resetHome(ResetHomeEvent event, Emitter<HomeState> emit) async {
+    emit(
+      HomeLoaded(
+        products: [],
+        isAdded: false,
+        categories: [],
+        searchProductQuery: '',
+        searchCategoryQuery: '',
+        sortType: ProductSortTypeEnum.none,
+        selectedCategory: null,
+      ),
+    );
   }
 }

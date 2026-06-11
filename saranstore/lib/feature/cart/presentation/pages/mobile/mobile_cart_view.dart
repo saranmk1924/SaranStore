@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:saranstore/core/common_widget/ss_button.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_state.dart';
@@ -30,21 +32,38 @@ class _MobileCartViewState extends State<MobileCartView> {
       canPop: false,
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20.0,
-              top: 10,
-              bottom: 15,
-              right: 20,
-            ),
-            child: CartHeaderRow(),
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              if (state is CartLoaded && state.products.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    left: 19.0,
+                    top: 10,
+                    bottom: 15,
+                    right: 20,
+                  ),
+                  child: CartHeaderRow(),
+                );
+              }
+              return SizedBox.shrink();
+            },
           ),
 
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               if (state is CartLoaded) {
                 return state.products.isEmpty
-                    ? Expanded(child: NoResultFound(message: 'Cart is empty'))
+                    ? Expanded(
+                        child: NoResultFound(
+                          message: 'Cart is empty',
+                          backWidget: SsButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            buttonText: 'Go back',
+                          ),
+                        ),
+                      )
                     : Expanded(
                         child: Column(
                           children: [

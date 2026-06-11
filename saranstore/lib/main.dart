@@ -4,8 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/core/dependencies/init_dependencies.dart';
 import 'package:saranstore/core/router/app_router.dart';
+import 'package:saranstore/feature/auth/presentation/bloc/auth_bloc.dart';
+import 'package:saranstore/feature/auth/presentation/cubit/password_visibility_cubit.dart';
 import 'package:saranstore/feature/cart/presentation/bloc/cart_bloc.dart';
 import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
 import 'package:saranstore/feature/home/presentation/cubit/image_slider_cubit.dart';
@@ -16,9 +19,9 @@ void main() async {
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  await initDependencies();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await initDependencies();
 
   runApp(const SaranStoreApp());
 }
@@ -32,8 +35,10 @@ class SaranStoreApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeBloc>(create: (_) => serviceLocator<HomeBloc>()),
         BlocProvider<CartBloc>(create: (_) => serviceLocator<CartBloc>()),
-        BlocProvider<ImageSliderCubit>(
-          create: (_) => serviceLocator<ImageSliderCubit>(),
+        BlocProvider<ImageSliderCubit>(create: (_) => serviceLocator<ImageSliderCubit>(),),
+        BlocProvider<AuthBloc>(create: (_) => serviceLocator<AuthBloc>()),
+        BlocProvider<PasswordVisibilityCubit>(
+          create: (_) => serviceLocator<PasswordVisibilityCubit>(),
         ),
       ],
       child: MaterialApp.router(
@@ -43,11 +48,12 @@ class SaranStoreApp extends StatelessWidget {
         title: 'SaranStore',
         theme: ThemeData(
           useMaterial3: true,
-          scaffoldBackgroundColor: const Color(0xffF5F5F5),
+          scaffoldBackgroundColor: AppPalette.primaryColor,
+          
           appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
+            backgroundColor: AppPalette.primaryColor,
             elevation: 0,
-            surfaceTintColor: Colors.transparent,
+            surfaceTintColor: AppPalette.primaryColor,
           ),
         ),
       ),

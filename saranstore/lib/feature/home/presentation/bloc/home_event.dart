@@ -44,3 +44,5 @@ class EditProductEvent extends HomeEvent{
   final ProductEntity updatedProduct;
   EditProductEvent({required this.updatedProduct});
 }
+
+class ResetHomeEvent extends HomeEvent{}

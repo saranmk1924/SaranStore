@@ -13,7 +13,6 @@ class ProductImageSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Images length: ${images.length}");
     return SizedBox(
       height: (images.isNotEmpty && images.length > 1) ? 360 : 300,
       child: Column(

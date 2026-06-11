@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saranstore/core/constant/app_images.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
 import 'package:saranstore/core/router/route_names.dart';
 
@@ -29,7 +30,14 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       duration: const Duration(seconds: 5),
     )..repeat();
 
-    _navigateToHome();
+    _navigateToLogin();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    precacheImage(AppImages.logo, context);
   }
 
   @override
@@ -39,13 +47,27 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<void> _navigateToHome() async {
+  Future<void> _navigateToLogin() async {
     await Future.delayed(Duration(seconds: 4));
+    _clockwiseController.stop();
+    _antiClockwiseController.stop();
 
+    // await Future.delayed(const Duration(milliseconds: 300));
     if (mounted) {
-      context.go(RouteNames.home);
+      context.pushReplacement(
+        RouteNames.login,
+        extra: {'is_from_splash': true},
+      );
     }
   }
+
+  // Future<void> _navigateToHome() async {
+  //   await Future.delayed(Duration(seconds: 4));
+
+  //   if (mounted) {
+  //     context.go(RouteNames.home);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +107,17 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                   ),
 
                   // Logo
-                  ClipOval(
-                    child: Image.asset(
-                      'assets/pngs/app_logo_2.png',
-                      width: 240,
+                  Hero(
+                    tag: 'app_logo',
+                    transitionOnUserGestures: true,
+                    child: Material(
+                      color: AppPalette.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/pngs/app_logo_2.png',
+                          width: 240,
+                        ),
+                      ),
                     ),
                   ),
                 ],

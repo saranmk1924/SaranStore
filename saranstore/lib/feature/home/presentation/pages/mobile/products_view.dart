@@ -73,6 +73,7 @@ class ProductsView extends StatelessWidget {
                   ),
 
                   PopupMenuButton<ProductSortTypeEnum>(
+                    offset: Offset(-30, 55),
                     tooltip: 'Sort',
                     icon: Stack(
                       alignment: Alignment.center,

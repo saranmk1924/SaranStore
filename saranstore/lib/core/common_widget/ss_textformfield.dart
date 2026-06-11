@@ -11,6 +11,7 @@ class SsTextformfield extends StatelessWidget {
   final void Function(String)? onChanged;
   final int? maxLength;
   final Widget? suffix;
+  final bool? obscureText;
   const SsTextformfield({
     super.key,
     required this.controller,
@@ -19,8 +20,9 @@ class SsTextformfield extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.onChanged,
-    this.maxLength, 
+    this.maxLength,
     this.suffix,
+    this.obscureText,
   });
 
   @override
@@ -28,12 +30,12 @@ class SsTextformfield extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: TextFormField(
-        
         onTapOutside: (_) {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         controller: controller,
         onChanged: onChanged,
+        obscureText: obscureText ?? false,
         maxLength: maxLength ?? 100,
         maxLines: 1,
         cursorColor: AppPalette.white,
@@ -71,6 +73,7 @@ class SsTextformfield extends StatelessWidget {
             borderSide: BorderSide(color: AppPalette.red, width: 2.5),
             borderRadius: BorderRadius.circular(8),
           ),
+          errorStyle: TextStyle(color: AppPalette.red),
         ),
         keyboardType: keyboardType,
         validator: validator,

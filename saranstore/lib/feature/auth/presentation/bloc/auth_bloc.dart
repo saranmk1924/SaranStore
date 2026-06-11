@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignupEvent>(_signup);
     on<LoginEvent>(_login);
     on<LogoutEvent>(_logout);
+    on<ClearAuthError>(_clearAuthError);
   }
 
   Future<void> _signup(SignupEvent event, Emitter<AuthState> emit) async {
@@ -56,5 +57,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }
+  }
+
+  Future<void> _clearAuthError(
+    ClearAuthError event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthError(message: ''));
   }
 }
