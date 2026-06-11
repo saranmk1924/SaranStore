@@ -73,7 +73,10 @@ class CategoryView extends StatelessWidget {
             thumbColor: AppPalette.scrollThumbColor,
             child: filteredCategories.isNotEmpty
                 ? GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 1,
+                    ),
                     controller: categoriesScrollController,
                     primary: false,
                     itemCount: filteredCategories.length,
