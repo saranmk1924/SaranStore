@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "122727763256",
+    "project_id": "saranstore1924",
+    "storage_bucket": "saranstore1924.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122727763256:android:3d042bbe004ca35c4b45cd",
+        "android_client_info": {
+          "package_name": "com.example.saranstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122727763256-h6p7n6j1mdmu99778al5s5pl13golpkj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.saranstore",
+            "certificate_hash": "947d7f514d1c01b59caadcfc7252873035a9edad"
+          }
+        },
+        {
+          "client_id": "122727763256-s5p0269cdbi9vl10cnsdne6a03rfakt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApv1fwOwFOAlrLWDGgKu_eVDzm9SsO0xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122727763256-s5p0269cdbi9vl10cnsdne6a03rfakt7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "122727763256-a56mou9egrioakv0hlss5hcmr9qjeo27.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.saranstore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

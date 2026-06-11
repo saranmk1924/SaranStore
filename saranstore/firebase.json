@@ -1,16 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web/",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
+{"hosting":{"public":"build/web/","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"saranstore1924","appId":"1:122727763256:android:3d042bbe004ca35c4b45cd","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"saranstore1924","configurations":{"android":"1:122727763256:android:3d042bbe004ca35c4b45cd","ios":"1:122727763256:ios:d6935ebc3ab430f14b45cd","macos":"1:122727763256:ios:d6935ebc3ab430f14b45cd","web":"1:122727763256:web:d378d5e6a8669e654b45cd","windows":"1:122727763256:web:dd462fadb3c9547c4b45cd"}}}}}}
