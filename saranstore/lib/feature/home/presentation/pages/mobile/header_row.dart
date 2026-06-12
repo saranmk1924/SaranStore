@@ -55,8 +55,8 @@ class HeaderRow extends StatelessWidget {
                     padding: EdgeInsetsGeometry.zero,
                     icon: Icon(
                       Icons.account_circle_rounded,
-                      color: AppPalette.secondaryColor,
-                      size: 50,
+                      color: AppPalette.white,
+                      size: 40,
                     ),
                     onSelected: (value) {
                       if (value == 'logout') {

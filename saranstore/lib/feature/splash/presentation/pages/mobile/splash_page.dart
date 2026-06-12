@@ -71,53 +71,56 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppPalette.primaryColor,
-      body: Center(
-        child: AnimatedBuilder(
-          animation: Listenable.merge([
-            _clockwiseController,
-            _antiClockwiseController,
-          ]),
-          builder: (context, child) {
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                // Outer Ring (Clockwise)
-                Transform.rotate(
-                  angle: _clockwiseController.value * 2 * pi,
-                  child: CustomPaint(
-                    size: const Size(340, 340),
-                    painter: DottedCirclePainter(dotCount: 48, dotRadius: 4),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: AppPalette.primaryColor,
+        body: Center(
+          child: AnimatedBuilder(
+            animation: Listenable.merge([
+              _clockwiseController,
+              _antiClockwiseController,
+            ]),
+            builder: (context, child) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Outer Ring (Clockwise)
+                  Transform.rotate(
+                    angle: _clockwiseController.value * 2 * pi,
+                    child: CustomPaint(
+                      size: const Size(340, 340),
+                      painter: DottedCirclePainter(dotCount: 48, dotRadius: 4),
+                    ),
                   ),
-                ),
-
-                // Inner Ring (Anti-Clockwise)
-                Transform.rotate(
-                  angle: -_antiClockwiseController.value * 2 * pi,
-                  child: CustomPaint(
-                    size: const Size(280, 280),
-                    painter: DottedCirclePainter(dotCount: 36, dotRadius: 3.5),
+      
+                  // Inner Ring (Anti-Clockwise)
+                  Transform.rotate(
+                    angle: -_antiClockwiseController.value * 2 * pi,
+                    child: CustomPaint(
+                      size: const Size(280, 280),
+                      painter: DottedCirclePainter(dotCount: 36, dotRadius: 3.5),
+                    ),
                   ),
-                ),
-
-                // Logo
-                Hero(
-                  tag: 'app_logo',
-                  transitionOnUserGestures: true,
-                  child: Material(
-                    color: AppPalette.transparent,
-                    child: ClipOval(
-                      child: Image.asset(
-                        'assets/pngs/app_logo_2.png',
-                        width: 240,
+      
+                  // Logo
+                  Hero(
+                    tag: 'app_logo',
+                    transitionOnUserGestures: true,
+                    child: Material(
+                      color: AppPalette.transparent,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/pngs/app_logo_2.png',
+                          width: 240,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

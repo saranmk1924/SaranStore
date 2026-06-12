@@ -46,75 +46,78 @@ class _MobileSignupViewState extends State<MobileSignupView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppPalette.primaryColor,
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Center(
-                  child: Container(
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppPalette.white),
-                    ),
-
-                    child: BlocConsumer<AuthBloc, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthAuthenticated) {
-                          FocusScope.of(context).unfocus();
-                          context.go(RouteNames.login);
-                        }
-                      },
-                      builder: (context, state) {
-                        return Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Form(
-                            key: formKey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SignupTopSection(),
-
-                                SizedBox(height: 5),
-
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SignupMiddleSection(
-                                      emailController: emailController,
-                                      passwordController: passwordController,
-                                      confirmPasswordController:
-                                          confirmPasswordController,
-                                      passwordCubit: passwordCubit,
-                                      confirmPasswordCubit:
-                                          confirmPasswordCubit,
-                                    ),
-
-                                    SizedBox(height: 15),
-
-                                    SignupBottomSection(
-                                      formKey: formKey,
-                                      emailController: emailController,
-                                      passwordController: passwordController,
-                                    ),
-                                  ],
-                                ),
-                              ],
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: AppPalette.primaryColor,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Center(
+                    child: Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppPalette.white),
+                      ),
+      
+                      child: BlocConsumer<AuthBloc, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthAuthenticated) {
+                            FocusScope.of(context).unfocus();
+                            context.go(RouteNames.login);
+                          }
+                        },
+                        builder: (context, state) {
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Form(
+                              key: formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SignupTopSection(),
+      
+                                  SizedBox(height: 5),
+      
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SignupMiddleSection(
+                                        emailController: emailController,
+                                        passwordController: passwordController,
+                                        confirmPasswordController:
+                                            confirmPasswordController,
+                                        passwordCubit: passwordCubit,
+                                        confirmPasswordCubit:
+                                            confirmPasswordCubit,
+                                      ),
+      
+                                      SizedBox(height: 15),
+      
+                                      SignupBottomSection(
+                                        formKey: formKey,
+                                        emailController: emailController,
+                                        passwordController: passwordController,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

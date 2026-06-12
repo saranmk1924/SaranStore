@@ -32,76 +32,81 @@ class _MobileLoginViewState extends State<MobileLoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppPalette.primaryColor,
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Center(
-                  child: Container(
-                    width: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppPalette.white),
-                    ),
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: AppPalette.primaryColor,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Center(
+                    child: Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppPalette.white),
+                      ),
 
-                    child: BlocConsumer<AuthBloc, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthAuthenticated) {
-                          context.go(RouteNames.home);
-                        }
-                        if (state is AuthError) {
-                          FocusScope.of(context).unfocus();
-                        }
-                      },
-                      builder: (context, state) {
-                        return Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Form(
-                            key: formKey,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  LoginTopSection(),
+                      child: BlocConsumer<AuthBloc, AuthState>(
+                        listener: (context, state) {
+                          if (state is AuthAuthenticated) {
+                            context.go(RouteNames.home);
+                          }
+                          if (state is AuthError) {
+                            FocusScope.of(context).unfocus();
+                          }
+                        },
+                        builder: (context, state) {
+                          return Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Form(
+                              key: formKey,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    LoginTopSection(),
 
-                                  SizedBox(height: 5),
+                                    SizedBox(height: 5),
 
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      LoginMiddleSection(
-                                        emailController: emailController,
-                                        passwordController: passwordController,
-                                        passwordCubit: passwordCubit,
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        LoginMiddleSection(
+                                          emailController: emailController,
+                                          passwordController:
+                                              passwordController,
+                                          passwordCubit: passwordCubit,
+                                        ),
 
-                                      SizedBox(height: 15),
+                                        SizedBox(height: 15),
 
-                                      LoginBottomSection(
-                                        formKey: formKey,
-                                        emailController: emailController,
-                                        passwordController: passwordController,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        LoginBottomSection(
+                                          formKey: formKey,
+                                          emailController: emailController,
+                                          passwordController:
+                                              passwordController,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

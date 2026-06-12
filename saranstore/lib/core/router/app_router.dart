@@ -6,7 +6,7 @@ import 'package:saranstore/feature/auth/presentation/pages/signup_page.dart';
 import 'package:saranstore/feature/cart/presentation/pages/cart_page.dart';
 import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 import 'package:saranstore/feature/home/presentation/pages/home_page.dart';
-import 'package:saranstore/feature/home/presentation/pages/mobile/product_details/product_details_view.dart';
+import 'package:saranstore/feature/home/presentation/pages/product_details_page.dart';
 import 'package:saranstore/feature/splash/presentation/pages/mobile/splash_page.dart';
 import 'package:saranstore/main_layout.dart';
 
@@ -66,7 +66,7 @@ class AppRouter {
             pageBuilder: (context, state) {
               final product = state.extra as ProductEntity;
               return NoTransitionPage(
-                child: ProductDetailsView(product: product),
+                child: ProductDetailsPage(product: product),
               );
             },
           ),
