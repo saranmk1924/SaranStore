@@ -10,6 +10,26 @@ This project was developed as a hands-on implementation of modern Flutter develo
 
 ![Splash](saranstore/assets/screenshots/splash.jpeg)
 
+### Login
+
+![Splash](saranstore/assets/screenshots/login.jpeg)
+
+### Signup
+
+![Splash](saranstore/assets/screenshots/signup.jpeg)
+
+### Login with validation (1)
+
+![Splash](saranstore/assets/screenshots/login_with_validation.jpeg)
+
+### Login with validation (2)
+
+![Splash](saranstore/assets/screenshots/login_with_validation_2.jpeg)
+
+### Signup with validation
+
+![Splash](saranstore/assets/screenshots/signup_with_validation.jpeg)
+
 ### Categories Screen
 
 ![Categories](saranstore/assets/screenshots/categories.jpeg)
