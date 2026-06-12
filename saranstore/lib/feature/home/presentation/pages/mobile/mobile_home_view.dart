@@ -57,6 +57,9 @@ class _MobileHomeViewState extends State<MobileHomeView> {
               message: "Product added successfully :)",
             );
           }
+          if (state is HomeLoaded && state.clearProductSearch) {
+            searchProductController.clear();
+          }
         },
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {

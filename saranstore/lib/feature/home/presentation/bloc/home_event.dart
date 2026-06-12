@@ -5,8 +5,9 @@ import 'package:saranstore/feature/home/domain/entity/product_entity.dart';
 abstract class HomeEvent {}
 
 class FetchProductsEvent extends HomeEvent {
+  final bool? isFromCartPage;
   final CategoryEntity selectedCategory;
-  FetchProductsEvent({required this.selectedCategory});
+  FetchProductsEvent({required this.selectedCategory, this.isFromCartPage});
 }
 
 class AddProductEvent extends HomeEvent {

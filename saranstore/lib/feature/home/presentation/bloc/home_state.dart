@@ -17,6 +17,7 @@ class HomeLoaded extends HomeState {
   final String searchProductQuery;
   final String searchCategoryQuery;
   final ProductSortTypeEnum sortType;
+  final bool clearProductSearch;
 
   HomeLoaded({
     required this.products,
@@ -26,6 +27,7 @@ class HomeLoaded extends HomeState {
     required this.searchProductQuery,
     required this.searchCategoryQuery,
     required this.sortType,
+    this.clearProductSearch=false,
   });
 }
 

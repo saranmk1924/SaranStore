@@ -33,21 +33,37 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       final currentState = state is HomeLoaded ? state as HomeLoaded : null;
-      emit(HomeLoading());
 
-      final products = await getProductsUsecase(event.selectedCategory.slug);
+      if (event.isFromCartPage == true) {
+        emit(
+          HomeLoaded(
+            products: currentState!.products,
+            isAdded: false,
+            categories: currentState.categories,
+            selectedCategory: currentState.selectedCategory,
+            searchProductQuery: '',
+            searchCategoryQuery: '',
+            sortType: ProductSortTypeEnum.none,
+            clearProductSearch: true,
+          ),
+        );
+      } else {
+        emit(HomeLoading());
 
-      emit(
-        HomeLoaded(
-          products: products,
-          isAdded: false,
-          categories: currentState?.categories ?? [],
-          selectedCategory: event.selectedCategory,
-          searchProductQuery: '',
-          searchCategoryQuery: '',
-          sortType: currentState?.sortType ?? ProductSortTypeEnum.none,
-        ),
-      );
+        final products = await getProductsUsecase(event.selectedCategory.slug);
+
+        emit(
+          HomeLoaded(
+            products: products,
+            isAdded: false,
+            categories: currentState?.categories ?? [],
+            selectedCategory: event.selectedCategory,
+            searchProductQuery: '',
+            searchCategoryQuery: '',
+            sortType: currentState?.sortType ?? ProductSortTypeEnum.none,
+          ),
+        );
+      }
     } catch (e) {
       emit(
         HomeError(

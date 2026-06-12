@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saranstore/core/constant/app_palette.dart';
+import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
+import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
+import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 
 class CartHeaderRow extends StatelessWidget {
   const CartHeaderRow({super.key});
@@ -17,6 +21,16 @@ class CartHeaderRow extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
+                context.read<HomeBloc>().add(
+                  FetchProductsEvent(
+                    isFromCartPage: true,
+                    selectedCategory: CategoryEntity(
+                      slug: '',
+                      name: '',
+                      url: '',
+                    ),
+                  ),
+                );
                 context.pop();
               },
               child: CircleAvatar(

@@ -8,6 +8,9 @@ import 'package:saranstore/feature/cart/presentation/bloc/cart_state.dart';
 import 'package:saranstore/feature/cart/presentation/pages/mobile/cart_header_row.dart';
 import 'package:saranstore/feature/cart/presentation/pages/mobile/cart_item.dart';
 import 'package:saranstore/feature/cart/presentation/pages/mobile/cart_total_widget.dart';
+import 'package:saranstore/feature/home/domain/entity/category_entity.dart';
+import 'package:saranstore/feature/home/presentation/bloc/home_bloc.dart';
+import 'package:saranstore/feature/home/presentation/bloc/home_event.dart';
 import 'package:saranstore/feature/home/presentation/pages/mobile/no_result_found.dart';
 
 class MobileCartView extends StatefulWidget {
@@ -58,6 +61,16 @@ class _MobileCartViewState extends State<MobileCartView> {
                           message: 'Cart is empty',
                           backWidget: SsButton(
                             onPressed: () {
+                              context.read<HomeBloc>().add(
+                                FetchProductsEvent(
+                                  isFromCartPage: true,
+                                  selectedCategory: CategoryEntity(
+                                    slug: '',
+                                    name: '',
+                                    url: '',
+                                  ),
+                                ),
+                              );
                               context.pop();
                             },
                             buttonText: 'Go back',

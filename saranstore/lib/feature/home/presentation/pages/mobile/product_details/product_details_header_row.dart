@@ -12,11 +12,11 @@ class ProductDetailsHeaderRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-              left: 20.0,
-              top: 10,
-              bottom: 15,
-              right: 20,
-            ),
+        left: 19.0,
+        top: 10,
+        bottom: 15,
+        right: 20,
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [

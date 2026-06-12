@@ -13,10 +13,8 @@ class LoginTopSection extends StatelessWidget {
           child: Hero(
             tag: 'app_logo',
             transitionOnUserGestures: true,
-            child: SizedBox(
-              width: 80,
-              height: 80,
-              child: ClipOval(child: Image.asset("assets/pngs/app_logo_2.png")),
+            child: ClipOval(
+              child: Image.asset("assets/pngs/app_logo_2.png", width: 80),
             ),
           ),
         ),
