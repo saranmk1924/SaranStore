@@ -21,7 +21,7 @@ class _DummyPlaceholderState extends State<DummyPlaceholder> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "This application is presently designed only for the mobile portrait mode.",
+                "SaranStore is presently developed only for the mobile portrait mode.",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
