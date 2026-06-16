@@ -16,23 +16,23 @@ Overall, SaranStore is a continuously evolving project that demonstrates modern 
 
 ### Login
 
-![Splash](saranstore/assets/screenshots/login.jpeg)
+![Login](saranstore/assets/screenshots/login.jpeg)
 
 ### Signup
 
-![Splash](saranstore/assets/screenshots/signup.jpeg)
+![Signup](saranstore/assets/screenshots/signup.jpeg)
 
 ### Login with validation (1)
 
-![Splash](saranstore/assets/screenshots/login_with_validation.jpeg)
+![Login with validation](saranstore/assets/screenshots/login_with_validation.jpeg)
 
 ### Login with validation (2)
 
-![Splash](saranstore/assets/screenshots/login_with_validation_2.jpeg)
+![Login with validation](saranstore/assets/screenshots/login_with_validation_2.jpeg)
 
 ### Signup with validation
 
-![Splash](saranstore/assets/screenshots/signup_with_validation.jpeg)
+![Signup with validation](saranstore/assets/screenshots/signup_with_validation.jpeg)
 
 ### Categories Screen
 
@@ -40,7 +40,7 @@ Overall, SaranStore is a continuously evolving project that demonstrates modern 
 
 ### Category Search
 
-![Categories](saranstore/assets/screenshots/category_search.jpeg)
+![Category Search](saranstore/assets/screenshots/category_search.jpeg)
 
 ### Products Screen
 
@@ -48,23 +48,23 @@ Overall, SaranStore is a continuously evolving project that demonstrates modern 
 
 ### Product details
 
-![Add Product](saranstore/assets/screenshots/product_details.jpeg)
+![Product details](saranstore/assets/screenshots/product_details.jpeg)
 
 ### Product reviews (1)
 
-![Add Product](saranstore/assets/screenshots/product_reviews_1.jpeg)
+![Product reviews](saranstore/assets/screenshots/product_reviews_1.jpeg)
 
 ### Product reviews (2)
 
-![Add Product](saranstore/assets/screenshots/product_reviews_2.jpeg)
+![Product reviews](saranstore/assets/screenshots/product_reviews_2.jpeg)
 
 ### Product Search
 
-![Products](saranstore/assets/screenshots/product_search.jpeg)
+![Product Search](saranstore/assets/screenshots/product_search.jpeg)
 
 ### Products Sort
 
-![Products](saranstore/assets/screenshots/products_sort.jpeg)
+![Products Sort](saranstore/assets/screenshots/products_sort.jpeg)
 
 ### Add Product
 
@@ -72,28 +72,28 @@ Overall, SaranStore is a continuously evolving project that demonstrates modern 
 
 ### Edit and Delete Product
 
-![Add Product](saranstore/assets/screenshots/edit_and_delete_product.jpeg)
+![Edit and Delete Product](saranstore/assets/screenshots/edit_and_delete_product.jpeg)
 
 ### Edit Product
 
-![Add Product](saranstore/assets/screenshots/edit_product.jpeg)
+![Edit Product](saranstore/assets/screenshots/edit_product.jpeg)
 
 ### Delete Product
 
-![Add Product](saranstore/assets/screenshots/delete_product.jpeg)
+![Delete Product](saranstore/assets/screenshots/delete_product.jpeg)
 
 ### Add to cart (1)
 
-![Add Product](saranstore/assets/screenshots/add_to_cart_1.jpeg)
+![Add to cart](saranstore/assets/screenshots/add_to_cart_1.jpeg)
 
 ### Add to cart (2)
 
-![Add Product](saranstore/assets/screenshots/add_to_cart_2.jpeg)
+![Add to cart](saranstore/assets/screenshots/add_to_cart_2.jpeg)
 
 ### Cart page
 
-![Add Product](saranstore/assets/screenshots/cart_page.jpeg)
+![Cart](saranstore/assets/screenshots/cart_page.jpeg)
 
 ### Remove from cart
 
-![Add Product](saranstore/assets/screenshots/remove_from_cart.jpeg)
+![Remove from cart](saranstore/assets/screenshots/remove_from_cart.jpeg)
