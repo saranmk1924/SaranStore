@@ -14,7 +14,12 @@ class LoginTopSection extends StatelessWidget {
             tag: 'app_logo',
             transitionOnUserGestures: true,
             child: ClipOval(
-              child: Image.asset("assets/pngs/app_logo_2.png", width: 80),
+              child: Image.asset(
+                'assets/pngs/app_logo_2.png',
+                fit: BoxFit.cover,
+                width: 80,
+                height: 80,
+              ),
             ),
           ),
         ),

@@ -93,16 +93,19 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       painter: DottedCirclePainter(dotCount: 48, dotRadius: 4),
                     ),
                   ),
-      
+
                   // Inner Ring (Anti-Clockwise)
                   Transform.rotate(
                     angle: -_antiClockwiseController.value * 2 * pi,
                     child: CustomPaint(
                       size: const Size(280, 280),
-                      painter: DottedCirclePainter(dotCount: 36, dotRadius: 3.5),
+                      painter: DottedCirclePainter(
+                        dotCount: 36,
+                        dotRadius: 3.5,
+                      ),
                     ),
                   ),
-      
+
                   // Logo
                   Hero(
                     tag: 'app_logo',
@@ -112,7 +115,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       child: ClipOval(
                         child: Image.asset(
                           'assets/pngs/app_logo_2.png',
+                          fit: BoxFit.cover,
                           width: 240,
+                          height: 240,
                         ),
                       ),
                     ),

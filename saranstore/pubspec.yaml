@@ -53,8 +53,8 @@ flutter_launcher_icons:
   ios: true
   web:
     generate: true
-    image_path: "assets/pngs/app_logo_2.png"
-  image_path: "assets/pngs/app_logo_2.png"
+    image_path: "assets/pngs/app_logo_2_crop.png"
+  image_path: "assets/pngs/app_logo_2_crop.png"
 
 dev_dependencies:
   flutter_lints: ^6.0.0
